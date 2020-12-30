@@ -1,0 +1,16 @@
+export const CALCULATE = 'CALCULATE';
+export const SEND_DATA = 'SEND_DATA';
+export const CLOSE_MODAL = 'CLOSE_MODAL';
+
+export const AUTH_CHECK_STATE = 'AUTH_CHECK_STATE';
+export const AUTH_USER = 'AUTH_USER';
+export const AUTH_START = 'AUTH_START';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const AUTH_FAIL = 'AUTH_FAIL';
+export const AUTH_CHECK_TIMEOUT = 'AUTH_CHECK_TIMEOUT';
+export const AUTH_INITIATE_LOGOUT = 'AUTH_INITIATE_LOGOUT';
+export const AUTH_LOGOUT = 'AUTH_LOGOUT';
+
+export const CHANGE_MAIL = 'CHANGE_MAIL';
+export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
+export const SWITCH_AUTH_MODE = 'SWITCH_AUTH_MODE';

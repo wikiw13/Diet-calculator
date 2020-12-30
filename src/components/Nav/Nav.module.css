@@ -1,0 +1,41 @@
+.Nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: var(--lightGrey);
+  height: 40px;
+  width: 100%;
+}
+
+.Nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.Nav li {
+  display: inline-block;
+  margin: 30px;
+  cursor: pointer;
+}
+
+.Nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color .3s;
+
+}
+
+.Nav a:hover,
+.Nav a:active,
+.Nav a:focus {
+  color: var(--pink);
+  text-decoration: none;
+}
+
+.Nav .Button {
+  background-color: var(--lightGrey);
+}

@@ -1,25 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect} from 'react';
+import { Route, Switch, Redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import * as actions from './store/actions/index';
+
+
 import './App.css';
+import Layout from './hoc/Layout';
+
+import Calculator from './containers/Calculator/Calculator';
+import Auth from './containers/Auth/Auth';
+import Homepage from './components/Homepage/Homepage';
 
 function App() {
+  const dispatch = useDispatch();
+
+  const onTryAutoSignup = () => dispatch(actions.authCheckState());
+
+  useEffect(() => {
+    onTryAutoSignup()
+  }, [onTryAutoSignup]);
+
+  let routes = (
+    <Switch>
+      <Route path="/calculator" component={Calculator} />
+      <Route path="/auth" component={Auth} />
+      <Route path="/" exact component={Homepage} />
+      <Redirect to="/" />
+    </Switch>
+  );
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Layout>{routes}</Layout>
     </div>
+    
   );
 }
 

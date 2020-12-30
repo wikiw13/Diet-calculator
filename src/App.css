@@ -1,5 +1,16 @@
+:root {
+  --green: #81B622;
+  --white: white;
+  --grey: rgb(78, 78, 78);
+  --lightGrey: rgb(160, 160, 160);
+  --pink: #F1C0B9;
+  --danger: #FF007B;
+  --warning: #FFCE58;
+}
+
 .App {
   text-align: center;
+  color: var(--grey)
 }
 
 .App-logo {
