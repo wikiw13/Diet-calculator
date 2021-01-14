@@ -1,15 +1,21 @@
 import React, { FunctionComponent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 
 import classes from "./Calculator.module.css";
 import Modal from "../../components/Modal/Modal";
 import GenderCheckbox from "../../components/GenderCheckbox/GenderCheckbox";
-import { sendData, closeModal } from "../../store/actions/CalculatorActions";
+import {
+  saveData,
+  closeModal,
+  sendHealthData,
+  getMoreFunctions,
+  updateHealthData,
+} from "../../store/actions/CalculatorActions";
 import { RootState } from "../../index";
 import { healthDataSelector } from "../../selectors/factorSelector";
 import { HealthInfo } from "../../selectors/factorSelector";
-
 
 interface CalculatorProps {}
 
@@ -23,30 +29,66 @@ interface Inputs {
 }
 
 const Calculator: FunctionComponent<CalculatorProps> = () => {
-  const {
-    register,
-    handleSubmit,
-    errors,
-
-    control,
-  } = useForm<Inputs>({
+  const { register, handleSubmit, errors, control } = useForm<Inputs>({
     mode: "onTouched",
   });
 
+  const history = useHistory();
+
   const show = useSelector((state: RootState) => state.calculatorReducer.show);
+  const isAuth = useSelector((state: RootState) => state.authReducer.isAuth);
+  const userId = useSelector((state: RootState) => state.authReducer.userId);
+  const token = useSelector((state: RootState) => state.authReducer.token);
+  const change = useSelector(
+    (state: RootState) => state.assumptionsReducer.change
+  );
+  const { weight, height, age, activity, gender, goal } = useSelector(
+    (state: RootState) => state.calculatorReducer.healthData
+  );
   const { BMI, BMR, TEE, totalCalories } = useSelector<RootState, HealthInfo>(
     healthDataSelector
   );
 
+  const getMoreHandler = () => {
+    const healthData = {
+      userData: {
+        weight,
+        height,
+        age,
+        activity,
+        gender,
+        goal,
+      },
+      calculations: {
+        BMI,
+        BMR,
+        TEE,
+        totalCalories,
+      },
+      userId,
+    };
+    onGetMore(healthData, token);
+  };
+
   const dispatch = useDispatch();
 
   const onSubmit = (data: object) => {
-    dispatch(sendData(data));
+    dispatch(saveData(data));
   };
 
   const onModalClosed = () => {
-    dispatch(closeModal())
-  }
+    dispatch(closeModal());
+  };
+
+  const onGetMore = (healthData: object, token: string | null) => {
+    if (isAuth) {
+      dispatch(sendHealthData(healthData, token));
+      history.push("/assumptions");
+    } else {
+      dispatch(getMoreFunctions());
+      history.push("/auth");
+    }
+  };
 
   const form = (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.FormDisplay}>
@@ -141,15 +183,24 @@ const Calculator: FunctionComponent<CalculatorProps> = () => {
       <button type="submit" className={classes.Button}>
         Calculate
       </button>
-      
     </form>
   );
-  
+
   return (
     <div className={classes.Calculator}>
       <h2>Enter Your details:</h2>
       {form}
-      <Modal show={show} BMI={BMI} BMR={BMR} TEE={TEE} total={totalCalories} clicked={onModalClosed} modalClosed={onModalClosed} />
+      <Modal
+        show={show}
+        BMI={BMI}
+        BMR={BMR}
+        TEE={TEE}
+        total={totalCalories}
+        clicked={onModalClosed}
+        modalClosed={onModalClosed}
+        getMoreClicked={getMoreHandler}
+        token={token}
+      />
     </div>
   );
 };

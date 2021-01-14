@@ -1,7 +1,7 @@
 import { put, call, delay } from "redux-saga/effects";
 import axios from "axios";
 
-import * as actions from "../store/actions/index";
+import * as actions from "../actions/index";
 
 export function* logoutSaga(action: any) {
   yield call([localStorage, "removeItem"], "token");
@@ -21,6 +21,7 @@ export function* authUserSaga(action: any) {
     email: action.email,
     password: action.password,
     returnSecureToken: true,
+    
   };
   let url =
     "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDXtW2ezooPuqPrlvzlYcogj8MLX3aj1nw ";
@@ -40,7 +41,9 @@ export function* authUserSaga(action: any) {
     yield localStorage.setItem("expirationDate", expirationDate);
     yield put(
       actions.authSuccess(response.data.idToken, response.data.localId)
+
     );
+    action.callback(response.data.localId, response.data.idToken)
     yield put(actions.checkAuthTimeout(response.data.expiresIn));
   } catch (error) {
     yield put(actions.authFail(error.response.data.error));

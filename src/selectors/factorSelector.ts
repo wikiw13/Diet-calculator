@@ -8,7 +8,7 @@ export interface HealthInfo {
   totalCalories: number;
 }
 
-export const healthDataSelector = ({calculatorReducer: {weight, height, age, gender, activity, goal}}: RootState) => {
+export const healthDataSelector = ({calculatorReducer: {healthData: {weight, height, age, gender, activity, goal}}}: RootState) => {
     const BMR = calculateBMR(weight, height, age, gender);
     const TEE = calculateTEE(BMR, activity)
     return {

@@ -9,6 +9,7 @@ import Layout from './hoc/Layout';
 
 import Calculator from './containers/Calculator/Calculator';
 import Auth from './containers/Auth/Auth';
+import Assumptions from './containers/Assumptions/Assumptions';
 import Homepage from './components/Homepage/Homepage';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
     <Switch>
       <Route path="/calculator" component={Calculator} />
       <Route path="/auth" component={Auth} />
+      <Route path="/assumptions" component={Assumptions} />
       <Route path="/" exact component={Homepage} />
       <Redirect to="/" />
     </Switch>

@@ -14,6 +14,8 @@ interface ModalProps {
   total: number;
   clicked: () => void;
   modalClosed: () => void;
+  getMoreClicked: () => void;
+  token: null | string;
 }
 
 const Modal: FunctionComponent<ModalProps> = ({
@@ -24,6 +26,8 @@ const Modal: FunctionComponent<ModalProps> = ({
   total,
   clicked,
   modalClosed,
+  getMoreClicked,
+  token,
 }) => {
   let weightScale;
   if (BMI < 18.5) {
@@ -100,9 +104,11 @@ const Modal: FunctionComponent<ModalProps> = ({
           />
           <p className={classes.Result}>{total} kcal</p>
         </div>
-        
-          <Button className={classes.Button}><NavLink to='/auth' className={classes.NavLink}>I want more!</NavLink></Button>
-        
+
+        <Button className={classes.Button} onClick={getMoreClicked}>
+          {token ? 'Update data' : 'I want more!'}
+          
+        </Button>
 
         <Button className={classes.Button} onClick={clicked}>
           Close

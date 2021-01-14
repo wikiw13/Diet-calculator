@@ -5,6 +5,10 @@ import { BrowserRouter } from "react-router-dom";
 import logger from "redux-logger";
 import { Provider } from "react-redux";
 import createSagaMiddleware from 'redux-saga';
+import 'fontsource-roboto';
+import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
 import "./index.css";
 import App from "./App";
@@ -13,16 +17,18 @@ import calculatorReducer, {
   CalculatorReducerState,
 } from "./store/reducers/calculatorReducer";
 import authReducer, {AuthReducerState} from './store/reducers/authReducer';
+import assumptionsReducer, {AssumptionsReducerState} from './store/reducers/assumptionsReducer';
 import 'rsuite/dist/styles/rsuite-default.css';
-import {watchAuth} from './sagas/index';
+import {watchAuth, watchCalculator, watchAssumptions} from './store/sagas/index';
 
 export interface RootState {
   calculatorReducer: CalculatorReducerState;
-  authReducer: AuthReducerState
+  authReducer: AuthReducerState;
+  assumptionsReducer: AssumptionsReducerState
 }
 
 const rootReducer = combineReducers<RootState>({
-  calculatorReducer, authReducer
+  calculatorReducer, authReducer, assumptionsReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -30,6 +36,8 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, applyMiddleware(logger, sagaMiddleware));
 
 sagaMiddleware.run(watchAuth);
+sagaMiddleware.run(watchCalculator)
+sagaMiddleware.run(watchAssumptions)
 
 ReactDOM.render(
   <React.StrictMode>

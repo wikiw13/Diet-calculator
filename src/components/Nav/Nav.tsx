@@ -20,6 +20,7 @@ const Nav: FunctionComponent<NavProps> = ({isAuth, logout}) => {
           <li>
             <NavLink to="/calculator">Calculator</NavLink>
           </li>
+          {isAuth && <li><NavLink to="/assumptions">Assumptions</NavLink></li>}
           <li>
             {isAuth ? (
               <button onClick={logout} className={classes.Button}>

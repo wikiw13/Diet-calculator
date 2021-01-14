@@ -57,12 +57,13 @@ export const logoutSucceed = () => {
   };
 };
 
-export const auth = (email: string, password: string, isSignup: boolean) => {
+export const auth = (email: string, password: string, isSignup: boolean, callback: (userId: string, token: string) => void) => {
   return {
     type: actionTypes.AUTH_USER,
     email,
     password,
-    isSignup
+    isSignup,
+    callback
   };
 };
 

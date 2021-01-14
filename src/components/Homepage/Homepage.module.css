@@ -64,7 +64,7 @@
 .GoalElement {
     width: 15%;
     margin: 30px 40px;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     transition: color .3s;
 }
