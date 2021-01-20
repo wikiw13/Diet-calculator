@@ -1,40 +1,36 @@
-import React from 'react';
-import { Chart } from 'primereact/chart';
+import React from "react";
+import { Chart } from "primereact/chart";
 
-import classes from './DoughnutChart.module.css';
+import classes from "./DoughnutChart.module.css";
 
-export const DoughnutChart = () => {
-    const chartData = {
-        labels: ['Carbs', 'Protein', 'Fat'],
-        datasets: [
-            {
-                data: [300, 50, 100],
-                backgroundColor: [
-                    "#81B622",
-                    "#F1C0B9",
-                    "#FFCE58"
-                ],
-                hoverBackgroundColor: [
-                    "rgb(160, 160, 160)",
-                    'rgb(160, 160, 160)',
-                    'rgb(160, 160, 160)'
-                ]
-            }]
-    };
+export const DoughnutChart = (macronutrients: Array<number>) => {
+  const chartData = {
+    labels: ["Carbs", "Protein", "Fat"],
+    datasets: [
+      {
+        data: macronutrients,
+        backgroundColor: ["#81B622", "#F1C0B9", "#FFCE58"],
+        hoverBackgroundColor: [
+          "rgb(160, 160, 160)",
+          "rgb(160, 160, 160)",
+          "rgb(160, 160, 160)",
+        ],
+      },
+    ],
+  };
+  console.log(chartData);
 
-    const lightOptions = {
-        legend: {
-            labels: {
-                fontColor: 'rgb(78, 78, 78)'
-            }
-        }
-    };
+  const lightOptions = {
+    legend: {
+      labels: {
+        fontColor: "rgb(78, 78, 78)",
+      },
+    },
+  };
 
-    return (
-        <div className={classes.card}>
-            <Chart type="doughnut" data={chartData} options={lightOptions} />
-            
-        </div>
-    )
+  return (
+    <div className={classes.card}>
+      <Chart type="doughnut" data={chartData} options={lightOptions} />
+    </div>
+  );
 };
-

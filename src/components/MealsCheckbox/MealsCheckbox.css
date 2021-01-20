@@ -1,0 +1,30 @@
+.selectMealsField {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 20px;
+}
+
+.p-checkbox-box {
+    border: 2px solid var(--lightGrey) !important;
+}
+
+.p-checkbox-box:hover {
+    border: 2px solid var(--green) !important;
+   
+}
+
+.p-checkbox-box.p-highlight:hover {
+    border-color: var(--green) !important;
+background: var(--green) !important
+}
+
+.p-checkbox .p-checkbox-box.p-highlight {
+    border-color: var(--green) !important;
+    background: var(--green) !important;
+}
+
+.p-checkbox-box.p-focus {
+    border-color: var(--lightGrey) !important;
+   box-shadow: 0 0 0 0.2rem var(--white) !important;
+}

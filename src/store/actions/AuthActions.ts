@@ -79,3 +79,4 @@ export const authCheckState = () => {
     type: actionTypes.AUTH_CHECK_STATE
   };
 };
+

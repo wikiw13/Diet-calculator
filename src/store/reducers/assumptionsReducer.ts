@@ -10,15 +10,9 @@ export interface AssumptionsReducerState {
   macronutrients: {
     protein: number;
     carbs: number;
-    fat: number;
+    fat: number
   };
-  meals: {
-    breakfast: boolean;
-    lunch: boolean;
-    dinner: boolean;
-    snack: boolean;
-    supper: boolean;
-  };
+  meals: string[];
   loading: boolean;
   change: boolean
 }
@@ -32,15 +26,9 @@ const initialstate: AssumptionsReducerState = {
   macronutrients: {
     protein: 0,
     carbs: 0,
-    fat: 0,
+    fat: 0
   },
-  meals: {
-    breakfast: false,
-    lunch: false,
-    dinner: false,
-    snack: false,
-    supper: false,
-  },
+  meals: [],
   loading: false,
   change: false
 };
@@ -50,28 +38,41 @@ const reducer = (
   action: any
 ): any => {
   switch (action.type) {
-    case actionTypes.FETCH_HEALTH_DATA_START:
-      return updateObject(state, {
-        loading: true,
-      });
-    case actionTypes.FETCH_HEALTH_DATA_SUCCESS:
-      return {
-        ...state,
-        healthData: {
-          activity: action.healthData.userData.activity,
-          goal: action.healthData.userData.goal,
-          totalCalories: action.healthData.calculations.totalCalories,
-        },
-        loading: false
-      };
-    case actionTypes.FETCH_HEALTH_DATA_FAIL:
-      return updateObject(state, {
-        loading: false,
-      });
+    
     case actionTypes.CHANGE_HEALTH_DATA:
         return updateObject(state, {
             change: true,
           });
+    case actionTypes.CHANGE_CARBS:
+        return {
+          ...state,
+          macronutrients: {
+            ...state.macronutrients,
+            carbs: action.carbsAmount
+        }};
+    case actionTypes.CHANGE_PROTEIN:
+        return {
+          ...state,
+          macronutrients: {
+            ...state.macronutrients,
+            protein: action.proteinAmount
+        }};
+    case actionTypes.CHANGE_FAT:
+        return {
+          ...state,
+          macronutrients: {
+            ...state.macronutrients,
+            fat: action.fatAmount
+        }};
+    // case actionTypes.SAVE_ASSUMPTIONS_DATA:
+    //     return {
+    //       ...state,
+    //       meals: action.selectedMeals};
+    case actionTypes.CHANGE_MEALS:
+        return {
+          ...state,
+          meals: action.selectedMeals};
+         
     default:
       return state;
   }

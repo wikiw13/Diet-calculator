@@ -39,6 +39,7 @@ const Calculator: FunctionComponent<CalculatorProps> = () => {
   const isAuth = useSelector((state: RootState) => state.authReducer.isAuth);
   const userId = useSelector((state: RootState) => state.authReducer.userId);
   const token = useSelector((state: RootState) => state.authReducer.token);
+  const key = useSelector((state: RootState) => state.userDataReducer.key);
   const change = useSelector(
     (state: RootState) => state.assumptionsReducer.change
   );
@@ -67,7 +68,27 @@ const Calculator: FunctionComponent<CalculatorProps> = () => {
       },
       userId,
     };
-    onGetMore(healthData, token);
+    console.log(healthData);
+    const updatedHealthData = {
+      [key]: {
+        userData: {
+          weight,
+          height,
+          age,
+          activity,
+          gender,
+          goal,
+        },
+        calculations: {
+          BMI,
+          BMR,
+          TEE,
+          totalCalories,
+        },
+        userId,
+      },
+    };
+    onGetMore(healthData, updatedHealthData, token);
   };
 
   const dispatch = useDispatch();
@@ -80,9 +101,12 @@ const Calculator: FunctionComponent<CalculatorProps> = () => {
     dispatch(closeModal());
   };
 
-  const onGetMore = (healthData: object, token: string | null) => {
-    if (isAuth) {
+  const onGetMore = (healthData: object, updatedHealthData: object, token: string | null) => {
+    if ((isAuth && change === false) || (isAuth && change === true && healthData === null)) {
       dispatch(sendHealthData(healthData, token));
+      history.push("/assumptions");
+    } else if (isAuth && change) {
+      dispatch(updateHealthData(updatedHealthData, token));
       history.push("/assumptions");
     } else {
       dispatch(getMoreFunctions());
@@ -147,7 +171,7 @@ const Calculator: FunctionComponent<CalculatorProps> = () => {
         name="gender"
         rules={{ required: true }}
         render={({ onChange, value }) => (
-          <GenderCheckbox onChange={(v: any) => onChange(v)} checked={value} />
+          <GenderCheckbox onChange={(v: any) => onChange(v)} />
         )}
       />
 

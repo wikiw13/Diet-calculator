@@ -1,35 +1,39 @@
 import * as actionTypes from "./actionTypes";
 
-export const fetchHealthDataStart = () => {
-  return {
-    type: actionTypes.FETCH_HEALTH_DATA_START
-  };
-};
 
-export const fetchHealthDataSuccess = (healthData: object) => {
-  return {
-    type: actionTypes.FETCH_HEALTH_DATA_SUCCESS,
-    healthData
-  };
-};
-
-export const fetchHealthDataFail = (error: string) => {
-  return {
-    type: actionTypes.FETCH_HEALTH_DATA_FAIL,
-    error: error
-  };
-};
-
-export const fetchHealthData = (token: string | null, userId: string | null) => {
-  return {
-    type: actionTypes.FETCH_HEALTH_DATA,
-    token,
-    userId
-  }
-}
 export const changeHealthData = () => {
   return {
     type: actionTypes.CHANGE_HEALTH_DATA,
+  }
+}
+export const changeCarbs = (carbsAmount: string) => {
+  return {
+    type: actionTypes.CHANGE_CARBS,
+    carbsAmount
+  }
+}
+export const changeProtein = (proteinAmount: string) => {
+  return {
+    type: actionTypes.CHANGE_PROTEIN,
+    proteinAmount
+  }
+}
+export const changeFat = (fatAmount: string) => {
+  return {
+    type: actionTypes.CHANGE_FAT,
+    fatAmount
+  }
+}
+export const saveAssumptionsData = (selectedMeals: Array<string>) => {
+  return {
+    type: actionTypes.SAVE_ASSUMPTIONS_DATA,
+    selectedMeals
+  }
+}
+export const changeMeals = (selectedMeals: Array<string>) => {
+  return {
+    type: actionTypes.CHANGE_MEALS,
+    selectedMeals
   }
 }
 

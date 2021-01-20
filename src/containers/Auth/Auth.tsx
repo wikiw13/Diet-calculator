@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Button } from "rsuite";
@@ -25,12 +25,20 @@ interface Inputs {
 }
 
 const Auth: FunctionComponent<AuthProps> = () => {
-  
-  const { loading, logout, isAuth, error, token, userId, isSignUp } = useSelector(
-    (state: RootState) => state.authReducer
-  );
+  const {
+    loading,
+    logout,
+    isAuth,
+    error,
+    token,
+    userId,
+    isSignUp,
+  } = useSelector((state: RootState) => state.authReducer);
   const getMore = useSelector(
     (state: RootState) => state.calculatorReducer.getMore
+  );
+  const fetched = useSelector(
+    (state: RootState) => state.userDataReducer.fetched
   );
   const { weight, height, age, activity, gender, goal } = useSelector(
     (state: RootState) => state.calculatorReducer.healthData
@@ -66,19 +74,28 @@ const Auth: FunctionComponent<AuthProps> = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (data: any) => {
-    dispatch(auth(data.mail, data.password, isSignUp, (userId: string, token: string) => {
-      if (getMore) {
-        dispatch(sendHealthData({...healthData, userId}, token));
-          history.push("/assumptions");
-    }}))
-    // if (getMore) {
-    //   dispatch(sendHealthData(healthData, token));
-    //   history.push("/assumptions");
-    // }
+    dispatch(
+      auth(
+        data.mail,
+        data.password,
+        isSignUp,
+        (userId: string, token: string) => {
+          if (getMore) {
+            dispatch(sendHealthData({ ...healthData, userId }, token));
+            history.push("/assumptions");
+          } else if (fetched) {
+            history.push("/assumptions");
+          } else {
+            history.push("/calculator");
+          }
+          // dispatch(fetchHealthData(token, userId))
+        }
+      )
+    );
   };
-  const onChangeMail = (mail: string) => dispatch(changeMailHandler(mail));
-  const onChangePassword = (password: string) =>
-    dispatch(changePasswordHandler(password));
+  // const onChangeMail = (mail: string) => dispatch(changeMailHandler(mail));
+  // const onChangePassword = (password: string) =>
+  //   dispatch(changePasswordHandler(password));
 
   const onSwitchAuthMode = () => dispatch(switchAuthModeHandler());
 
@@ -87,7 +104,7 @@ const Auth: FunctionComponent<AuthProps> = () => {
       <label>E-mail address:</label>
       <input
         name="mail"
-        onChange={() => onChangeMail(getValues("mail"))}
+        // onChange={() => onChangeMail(getValues("mail"))}
         ref={register({
           required: true,
           pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
@@ -100,7 +117,7 @@ const Auth: FunctionComponent<AuthProps> = () => {
       <label>Password:</label>
       <input
         name="password"
-        onChange={() => onChangePassword(getValues("password"))}
+        // onChange={() => onChangePassword(getValues("password"))}
         ref={register({ required: true, minLength: 6 })}
       />
 

@@ -6,6 +6,7 @@ export {
   authFail,
   authCheckState,
   checkAuthTimeout,
+  
 } from "./AuthActions";
 
 export {
@@ -20,9 +21,18 @@ export {
 } from "./CalculatorActions";
 
 export {
- fetchHealthData,
+ 
+ changeHealthData,
+ changeCarbs,
+ changeFat,
+ changeProtein,
+ saveAssumptionsData,
+ changeMeals
+} from "./AssumptionsActions";
+
+export {
+  fetchHealthData,
  fetchHealthDataStart,
  fetchHealthDataFail,
  fetchHealthDataSuccess,
- changeHealthData
-} from "./AssumptionsActions";
+} from './userDataActions'
