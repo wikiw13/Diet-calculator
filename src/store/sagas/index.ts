@@ -3,8 +3,8 @@ import { takeEvery, all } from "redux-saga/effects";
 import * as actionTypes from "../actions/actionTypes";
 import {  } from "./assumptionsSaga";
 import { logoutSaga, authUserSaga, checkAuthTimeoutSaga, authCheckStateSaga} from "./authSaga";
-import {sendHealthDataSaga, updateHealthDataSaga} from './calculatorSaga';
-import {fetchHealthDataSaga} from './userDataSaga';
+import {sendHealthDataSaga, } from './calculatorSaga';
+import {fetchHealthDataSaga, updateHealthDataSaga} from './userDataSaga';
 
 
 
@@ -21,14 +21,14 @@ export function* watchAuth() {
 export function* watchCalculator() {
   yield all([
     takeEvery(actionTypes.SEND_HEALTH_DATA, sendHealthDataSaga),
-    takeEvery(actionTypes.UPDATE_HEALTH_DATA, updateHealthDataSaga),
+    
     
   ]);
 };
 export function* watchUserData() {
   yield all([
-    takeEvery(actionTypes.FETCH_HEALTH_DATA, fetchHealthDataSaga)
-    
+    takeEvery(actionTypes.FETCH_HEALTH_DATA, fetchHealthDataSaga),
+    takeEvery(actionTypes.UPDATE_HEALTH_DATA, updateHealthDataSaga),
   ]);
 };
 

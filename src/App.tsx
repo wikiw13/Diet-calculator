@@ -10,7 +10,6 @@ import Calculator from "./containers/Calculator/Calculator";
 import Auth from "./containers/Auth/Auth";
 import Assumptions from "./containers/Assumptions/Assumptions";
 import Homepage from "./components/Homepage/Homepage";
-import { fetchHealthData } from "./store/actions/index";
 
 function App() {
   const { token, userId } = useSelector(
@@ -18,17 +17,14 @@ function App() {
   );
   const dispatch = useDispatch();
 
-  const onTryAutoSignup = useCallback(() => dispatch(actions.authCheckState()), [dispatch]);
-  const onFetchHealthdata = () =>
-    dispatch(fetchHealthData(token, userId));
+  const onTryAutoSignup = useCallback(
+    () => dispatch(actions.authCheckState()),
+    [dispatch]
+  );
 
   useEffect(() => {
     onTryAutoSignup();
   }, [onTryAutoSignup]);
-
-  useEffect(() => {
-    onFetchHealthdata();
-  }, [onFetchHealthdata])
 
   let routes = (
     <Switch>

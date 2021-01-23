@@ -3,7 +3,7 @@ import { Popover, Whisper, Button } from "rsuite";
 
 interface PopoverProps {
   content: string;
-    title: string;
+  title: string;
 }
 
 const Speaker: FunctionComponent<PopoverProps> = ({
@@ -11,7 +11,6 @@ const Speaker: FunctionComponent<PopoverProps> = ({
   title,
   ...props
 }) => {
-  console.log(content);
   return (
     <Popover {...props}>
       <p>{content}</p>

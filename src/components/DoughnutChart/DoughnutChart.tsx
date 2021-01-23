@@ -18,7 +18,6 @@ export const DoughnutChart = (macronutrients: Array<number>) => {
       },
     ],
   };
-  console.log(chartData);
 
   const lightOptions = {
     legend: {

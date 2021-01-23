@@ -1,4 +1,9 @@
-import React, { FunctionComponent, useCallback, useEffect, ChangeEvent } from "react";
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  ChangeEvent,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "rsuite";
 import { useHistory } from "react-router-dom";
@@ -11,18 +16,16 @@ import { healthDataSelector } from "../../selectors/factorSelector";
 import { HealthInfo } from "../../selectors/factorSelector";
 import basicTable from "../../components/Table/Table";
 import {
-  fetchHealthData,
   changeHealthData,
   changeCarbs,
   changeFat,
   changeProtein,
-  saveAssumptionsData,
-  changeMeals
+  changeMeals,
+  updateHealthData,
 } from "../../store/actions";
 import MacronutrientsInputs from "../../components/MacronutrientsInputs/MacronutrientsInputs";
 
-
-import {PrimeCheckboxProps} from '../../components/MealsCheckbox/MealsCheckbox';
+import { PrimeCheckboxProps } from "../../components/MealsCheckbox/MealsCheckbox";
 
 interface AssumptionsProps {
   carbsValue: string;
@@ -35,27 +38,22 @@ const Assumptions: FunctionComponent<AssumptionsProps> = ({
   carbsValue,
   proteinValue,
   fatValue,
-  selectedMeals,
 }) => {
-  const {
-    loading,
-    logout,
-    isAuth,
-    error,
-    token,
-    userId,
-    isSignUp,
-  } = useSelector((state: RootState) => state.authReducer);
-  //   const getMore = useSelector(
-  //     (state: RootState) => state.calculatorReducer.getMore
-  //   );
-  const { activity, goal, totalCalories } = useSelector(
-    (state: RootState) => state.userDataReducer.healthData
+  const { activity, goal, weight, height, gender, age } = useSelector(
+    (state: RootState) => state.calculatorReducer.healthData
+  );
+  const { BMI, BMR, TEE } = useSelector<RootState, HealthInfo>(
+    healthDataSelector
   );
   const { protein, carbs, fat } = useSelector(
     (state: RootState) => state.assumptionsReducer.macronutrients
   );
   const { meals } = useSelector((state: RootState) => state.assumptionsReducer);
+  const { key } = useSelector((state: RootState) => state.userDataReducer);
+  const { totalCalories } = useSelector((state: RootState) => state.userDataReducer.userData);
+  const { userId, token } = useSelector(
+    (state: RootState) => state.authReducer
+  );
 
   const proteinNumber = Number(protein);
   const carbsNumber = Number(carbs);
@@ -63,10 +61,38 @@ const Assumptions: FunctionComponent<AssumptionsProps> = ({
 
   const macronutrients = [carbsNumber, proteinNumber, fatNumber];
   const macronutrientsSummary = carbsNumber + proteinNumber + fatNumber;
-  console.log(macronutrientsSummary);
+
+  const updatedHealthData = {
+    [key]: {
+      userData: {
+        data: {
+          weight,
+          height,
+          age,
+          activity,
+          gender,
+          goal,
+        },
+        calculations: {
+          BMI,
+          BMR,
+          TEE,
+          totalCalories,
+        },
+      },
+      userId,
+      dietData: {
+        macronutrients: {
+          'carbs': carbsNumber,
+          'protein': proteinNumber,
+          'fat': fatNumber
+        },
+        meals: [...meals],
+      },
+    },
+  };
 
   const history = useHistory();
-
   const dispatch = useDispatch();
 
   const onChangeHandler = () => {
@@ -78,8 +104,8 @@ const Assumptions: FunctionComponent<AssumptionsProps> = ({
   const onChangeProtein = (proteinAmount: string) =>
     dispatch(changeProtein(proteinAmount));
   const onChangeFat = (fatAmount: string) => dispatch(changeFat(fatAmount));
-  const onSaveHandler = (selectedMeals: Array<string>) => {
-    dispatch(saveAssumptionsData(selectedMeals));
+  const onSaveAssumptionsData = () => {
+    dispatch(updateHealthData(updatedHealthData, token, key));
   };
 
   const onMealChangeHandler = (e: PrimeCheckboxProps) => {
@@ -87,7 +113,6 @@ const Assumptions: FunctionComponent<AssumptionsProps> = ({
     if (e.checked) selectedMeals.push(e.value);
     else selectedMeals.splice(selectedMeals.indexOf(e.value), 1);
     dispatch(changeMeals(selectedMeals));
-    console.log(selectedMeals);
   };
 
   return (
@@ -112,7 +137,7 @@ const Assumptions: FunctionComponent<AssumptionsProps> = ({
       <hr />
       <MealsCheckbox onMealChange={onMealChangeHandler} />
       {macronutrientsSummary === 100 && (
-        <Button onClick={() => onSaveHandler(selectedMeals)}>Save</Button>
+        <Button onClick={onSaveAssumptionsData}>Save</Button>
       )}
     </div>
   );

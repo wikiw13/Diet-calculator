@@ -16,6 +16,7 @@ interface ModalProps {
   modalClosed: () => void;
   getMoreClicked: () => void;
   token: null | string;
+  fetched: boolean
 }
 
 const Modal: FunctionComponent<ModalProps> = ({
@@ -28,6 +29,7 @@ const Modal: FunctionComponent<ModalProps> = ({
   modalClosed,
   getMoreClicked,
   token,
+  fetched
 }) => {
   let weightScale;
   if (BMI < 18.5) {
@@ -60,6 +62,15 @@ const Modal: FunctionComponent<ModalProps> = ({
         />
       </div>
     );
+  };
+
+  let buttonName;
+  if (token && fetched === false) {
+    buttonName = 'Save data'
+  } else if (token && fetched ) {
+    buttonName = 'Update data'
+  } else {
+    buttonName = 'I want more!'
   }
 
   return (
@@ -106,7 +117,8 @@ const Modal: FunctionComponent<ModalProps> = ({
         </div>
 
         <Button className={classes.Button} onClick={getMoreClicked}>
-          {token ? 'Update data' : 'I want more!'}
+          {/* {token ? 'Update data' : 'I want more!'} */}
+          {buttonName}
           
         </Button>
 

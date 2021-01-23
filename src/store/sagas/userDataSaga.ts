@@ -20,9 +20,27 @@ export function* fetchHealthDataSaga(action: any) {
           key: key
         };
       };
-      console.log(healthData)
       yield put(actions.fetchHealthDataSuccess(healthData));
     } catch (error) {
       yield put(actions.fetchHealthDataFail(error));
+    }
+  };
+
+  export function* updateHealthDataSaga(action: any) {
+    
+    yield put(actions.updateHealthDataStart());
+    console.log('action:', action)
+    try {
+      const response = yield axios.patch(
+        "/health-data.json?auth=" + action.token,
+        action.updatedHealthData
+      );
+      action.userId = action.updatedHealthData[action.key].userId;
+      yield put(
+        actions.updateHealthDataSuccess(response.data.name, action.updatedHealthData)
+      );
+      yield call(fetchHealthDataSaga, action)
+    } catch (error) {
+      yield put(actions.updateHealthDataFail(error));
     }
   }

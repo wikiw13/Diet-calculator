@@ -54,11 +54,25 @@ const reducer = (
         ...state,
         getMore: true,
       };
-      case actionTypes.UPDATE_HEALTH_DATA:
-        return {
-          ...state,
-          show: true
-        }
+    // case actionTypes.UPDATE_HEALTH_DATA:
+    //   return {
+    //     ...state,
+    //     show: true,
+    //   };
+    case actionTypes.CLEAR_DATA:
+      return {
+        ...state,
+        show: false,
+        getMore: false,
+        healthData: {
+          weight: 0,
+          height: 0,
+          age: 0,
+          activity: "",
+          gender: "",
+          goal: "",
+        },
+      };
     default:
       return state;
   }

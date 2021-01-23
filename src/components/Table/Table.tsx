@@ -18,31 +18,31 @@ const useStyles = makeStyles({
 });
 
 interface BasicTableProps {
-  activity: string,
-  goal: string,
-  totalCalories: number
+  activity: string;
+  goal: string;
+  totalCalories: number;
 }
 
 export default function BasicTable(props: BasicTableProps) {
-  const {activity, goal, totalCalories} = props;
+  const { activity, goal, totalCalories } = props;
   const classes = useStyles();
 
-  let activityText = '';
-  if (activity === 'high') {
-    activityText = 'High - physical work / 4-5 workouts during week'
-  } else if (activity === 'low') {
-    activityText = 'Low - sedentary lifestyle with low physical activity'
+  let activityText = "";
+  if (activity === "high") {
+    activityText = "High - physical work / 4-5 workouts during week";
+  } else if (activity === "low") {
+    activityText = "Low - sedentary lifestyle with low physical activity";
   } else {
-    activityText = 'Normal - standing work / 2-3 workouts during week';
+    activityText = "Normal - standing work / 2-3 workouts during week";
   }
 
-  let goalText = '';
-  if (goal === 'loose') {
-    goalText = 'Loose weight'
-  } else if (goal === 'gain') {
-    goalText = 'Gain weight / muscle mass'
+  let goalText = "";
+  if (goal === "loose") {
+    goalText = "Loose weight";
+  } else if (goal === "gain") {
+    goalText = "Gain weight / muscle mass";
   } else {
-    goalText = 'Healthy eating / weight maintenance';
+    goalText = "Healthy eating / weight maintenance";
   }
 
   return (

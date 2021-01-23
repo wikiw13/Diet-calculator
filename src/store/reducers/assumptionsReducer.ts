@@ -10,11 +10,11 @@ export interface AssumptionsReducerState {
   macronutrients: {
     protein: number;
     carbs: number;
-    fat: number
+    fat: number;
   };
   meals: string[];
   loading: boolean;
-  change: boolean
+  change: boolean;
 }
 
 const initialstate: AssumptionsReducerState = {
@@ -26,11 +26,11 @@ const initialstate: AssumptionsReducerState = {
   macronutrients: {
     protein: 0,
     carbs: 0,
-    fat: 0
+    fat: 0,
   },
   meals: [],
   loading: false,
-  change: false
+  change: false,
 };
 
 const reducer = (
@@ -38,41 +38,50 @@ const reducer = (
   action: any
 ): any => {
   switch (action.type) {
-    
     case actionTypes.CHANGE_HEALTH_DATA:
-        return updateObject(state, {
-            change: true,
-          });
+      return updateObject(state, {
+        change: true,
+      });
     case actionTypes.CHANGE_CARBS:
-        return {
-          ...state,
-          macronutrients: {
-            ...state.macronutrients,
-            carbs: action.carbsAmount
-        }};
+      return {
+        ...state,
+        macronutrients: {
+          ...state.macronutrients,
+          carbs: action.carbsAmount,
+        },
+      };
     case actionTypes.CHANGE_PROTEIN:
-        return {
-          ...state,
-          macronutrients: {
-            ...state.macronutrients,
-            protein: action.proteinAmount
-        }};
+      return {
+        ...state,
+        macronutrients: {
+          ...state.macronutrients,
+          protein: action.proteinAmount,
+        },
+      };
     case actionTypes.CHANGE_FAT:
-        return {
-          ...state,
-          macronutrients: {
-            ...state.macronutrients,
-            fat: action.fatAmount
-        }};
+      return {
+        ...state,
+        macronutrients: {
+          ...state.macronutrients,
+          fat: action.fatAmount,
+        },
+      };
     // case actionTypes.SAVE_ASSUMPTIONS_DATA:
     //     return {
     //       ...state,
     //       meals: action.selectedMeals};
     case actionTypes.CHANGE_MEALS:
-        return {
-          ...state,
-          meals: action.selectedMeals};
-         
+      return {
+        ...state,
+        meals: action.selectedMeals,
+      };
+    case actionTypes.CLEAR_DATA:
+      return {
+        ...state,
+        healthData: {},
+        macronutrients: {},
+        meals: [],
+      };
     default:
       return state;
   }

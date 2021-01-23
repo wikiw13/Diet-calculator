@@ -1,3 +1,4 @@
+
 import * as actionTypes from "./actionTypes";
 
 export const changeMailHandler = (mail: string) => {
@@ -41,42 +42,52 @@ export const authSuccess = (token: string | null, userId: string | null) => {
 export const authFail = (error: string | null) => {
   return {
     type: actionTypes.AUTH_FAIL,
-    error: error
+    error: error,
   };
 };
 
 export const logout = () => {
   return {
-    type: actionTypes.AUTH_INITIATE_LOGOUT
+    type: actionTypes.AUTH_INITIATE_LOGOUT,
   };
 };
 
 export const logoutSucceed = () => {
   return {
-    type: actionTypes.AUTH_LOGOUT
+    type: actionTypes.AUTH_LOGOUT,
   };
 };
 
-export const auth = (email: string, password: string, isSignup: boolean, callback: (userId: string, token: string) => void) => {
+export const auth = (
+  email: string,
+  password: string,
+  isSignup: boolean,
+  history: any,
+  healthData: object,
+  updatedHealthData: object,
+  key: string
+) => {
   return {
     type: actionTypes.AUTH_USER,
     email,
     password,
     isSignup,
-    callback
+    history,
+    healthData,
+    updatedHealthData,
+    key
   };
 };
 
 export const checkAuthTimeout = (expirationTime: number) => {
   return {
     type: actionTypes.AUTH_CHECK_TIMEOUT,
-    expirationTime
+    expirationTime,
   };
 };
 
 export const authCheckState = () => {
   return {
-    type: actionTypes.AUTH_CHECK_STATE
+    type: actionTypes.AUTH_CHECK_STATE,
   };
 };
-

@@ -66,6 +66,8 @@ const reducer = (state: AuthReducerState = initialstate, action: any): any => {
         userId: null,
         isAuth: false,
         logout: true,
+        password:'',
+        mail:''
       });
     default:
       return state;

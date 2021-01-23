@@ -15,7 +15,7 @@ import { RootState } from "../../index";
 import Spinner from "../../components/Spinner/Spinner";
 import { healthDataSelector } from "../../selectors/factorSelector";
 import { HealthInfo } from "../../selectors/factorSelector";
-import { sendHealthData } from "../../store/actions/CalculatorActions";
+import { updateHealthData } from "../../store/actions";
 
 interface AuthProps {}
 
@@ -25,26 +25,26 @@ interface Inputs {
 }
 
 const Auth: FunctionComponent<AuthProps> = () => {
-  const {
-    loading,
-    logout,
-    isAuth,
-    error,
-    token,
-    userId,
-    isSignUp,
-  } = useSelector((state: RootState) => state.authReducer);
+  const { loading, logout, isAuth, error, userId, isSignUp } = useSelector(
+    (state: RootState) => state.authReducer
+  );
   const getMore = useSelector(
     (state: RootState) => state.calculatorReducer.getMore
   );
   const fetched = useSelector(
     (state: RootState) => state.userDataReducer.fetched
   );
+  const fetchLoading = useSelector(
+    (state: RootState) => state.userDataReducer.loading
+  );
   const { weight, height, age, activity, gender, goal } = useSelector(
     (state: RootState) => state.calculatorReducer.healthData
   );
   const { BMI, BMR, TEE, totalCalories } = useSelector<RootState, HealthInfo>(
     healthDataSelector
+  );
+  const { key, macronutrients, meals } = useSelector(
+    (state: RootState) => state.userDataReducer
   );
 
   const { register, handleSubmit, errors, getValues } = useForm<Inputs>({
@@ -54,21 +54,57 @@ const Auth: FunctionComponent<AuthProps> = () => {
   const history = useHistory();
 
   const healthData = {
-    data: {
-      weight,
-      height,
-      age,
-      activity,
-      gender,
-      goal,
-    },
-    calculations: {
-      BMI,
-      BMR,
-      TEE,
-      totalCalories,
+    userData: {
+      data: {
+        weight,
+        height,
+        age,
+        activity,
+        gender,
+        goal,
+      },
+      calculations: {
+        BMI,
+        BMR,
+        TEE,
+        totalCalories,
+      },
     },
     userId,
+    dietData: {
+      macronutrients: {
+        protein: 0,
+        fat: 0,
+        carbs: 0,
+      },
+      meals: [""],
+    },
+  };
+
+  const updatedHealthData = {
+    userData: {
+      data: {
+        weight,
+        height,
+        age,
+        activity,
+        gender,
+        goal,
+      },
+      calculations: {
+        BMI,
+        BMR,
+        TEE,
+        totalCalories,
+      },
+    },
+
+    dietData: {
+      macronutrients: {
+        ...macronutrients,
+      },
+      meals: [...meals],
+    },
   };
 
   const dispatch = useDispatch();
@@ -79,23 +115,16 @@ const Auth: FunctionComponent<AuthProps> = () => {
         data.mail,
         data.password,
         isSignUp,
-        (userId: string, token: string) => {
-          if (getMore) {
-            dispatch(sendHealthData({ ...healthData, userId }, token));
-            history.push("/assumptions");
-          } else if (fetched) {
-            history.push("/assumptions");
-          } else {
-            history.push("/calculator");
-          }
-          // dispatch(fetchHealthData(token, userId))
-        }
+        history,
+        healthData,
+        updatedHealthData,
+        key
       )
     );
   };
-  // const onChangeMail = (mail: string) => dispatch(changeMailHandler(mail));
-  // const onChangePassword = (password: string) =>
-  //   dispatch(changePasswordHandler(password));
+  const onChangeMail = (mail: string) => dispatch(changeMailHandler(mail));
+  const onChangePassword = (password: string) =>
+    dispatch(changePasswordHandler(password));
 
   const onSwitchAuthMode = () => dispatch(switchAuthModeHandler());
 
@@ -104,7 +133,7 @@ const Auth: FunctionComponent<AuthProps> = () => {
       <label>E-mail address:</label>
       <input
         name="mail"
-        // onChange={() => onChangeMail(getValues("mail"))}
+        onChange={() => onChangeMail(getValues("mail"))}
         ref={register({
           required: true,
           pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
@@ -117,7 +146,7 @@ const Auth: FunctionComponent<AuthProps> = () => {
       <label>Password:</label>
       <input
         name="password"
-        // onChange={() => onChangePassword(getValues("password"))}
+        onChange={() => onChangePassword(getValues("password"))}
         ref={register({ required: true, minLength: 6 })}
       />
 

@@ -1,4 +1,5 @@
 export const CALCULATE = 'CALCULATE';
+export const CLEAR_DATA = 'CLEAR_DATA';
 export const SAVE_DATA = 'SEND_DATA';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 

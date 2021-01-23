@@ -1,11 +1,13 @@
 import { put, call, delay } from "redux-saga/effects";
 import axios from "../../axios-instance";
+import {fetchHealthDataSaga} from './userDataSaga';
 
 import * as actions from "../actions/index";
 
 export function* sendHealthDataSaga(action: any) {
   yield put(actions.sendHealthDataStart());
   try {
+    console.log(action)
     yield delay(1000);
     const response = yield axios.post(
       "/health-data.json?auth=" + action.token,
@@ -14,23 +16,8 @@ export function* sendHealthDataSaga(action: any) {
     yield put(
       actions.sendHealthDataSuccess(response.data.name, action.healthData)
     );
+    yield call(fetchHealthDataSaga, action)
   } catch (error) {
     yield put(actions.sendHealthDataFail(error));
-  }
-}
-
-export function* updateHealthDataSaga(action: any) {
-  yield put(actions.updateHealthDataStart());
-  try {
-    const response = yield axios.patch(
-      "/health-data.json?auth=" + action.token,
-      action.updatedData
-    );
-    action.userId = action.updatedData.userId;
-    yield put(
-      actions.updateHealthDataSuccess(response.data.name, action.updatedData)
-    );
-  } catch (error) {
-    yield put(actions.updateHealthDataFail(error));
   }
 }

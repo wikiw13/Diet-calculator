@@ -55,31 +55,32 @@ export const getMoreFunctions = () => {
   }
 };
 
-export const updateHealthDataStart = () => {
-  return {
-    type: actionTypes.UPDATE_HEALTH_DATA_START,
-  };
-};
+// export const updateHealthDataStart = () => {
+//   return {
+//     type: actionTypes.UPDATE_HEALTH_DATA_START,
+//   };
+// };
 
-export const updateHealthDataSuccess = (id: string, updatedData: object) => {
-  return {
-    type: actionTypes.UPDATE_HEALTH_DATA_SUCCESS,
-    id,
-    updatedData
-  };
-};
+// export const updateHealthDataSuccess = (id: string, updatedData: object) => {
+//   return {
+//     type: actionTypes.UPDATE_HEALTH_DATA_SUCCESS,
+//     id,
+//     updatedData
+//   };
+// };
 
-export const updateHealthDataFail = (error: string) => {
-  return {
-    type: actionTypes.UPDATE_HEALTH_DATA_FAIL,
-    error: error
-  };
-};
+// export const updateHealthDataFail = (error: string) => {
+//   return {
+//     type: actionTypes.UPDATE_HEALTH_DATA_FAIL,
+//     error: error
+//   };
+// };
 
-export const updateHealthData = (updatedData: object, token: string | null) => {
-  return {
-    type: actionTypes.UPDATE_HEALTH_DATA,
-    updatedData,
-    token
-  }
-};
+// export const updateHealthData = (updatedHealthData: object, token: string | null, key: string) => {
+//   return {
+//     type: actionTypes.UPDATE_HEALTH_DATA,
+//     updatedHealthData,
+//     token,
+//     key
+//   }
+// };

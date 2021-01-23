@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {useHistory} from 'react-router';
 
 import { RootState } from "../index";
-import { logout } from "../store/actions/AuthActions";
+import { logout, clearData } from "../store/actions/index";
 
 interface LayoutProps {
   children: ReactNode;
@@ -12,6 +12,7 @@ interface LayoutProps {
 
 const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
   const isAuth = useSelector((state: RootState) => state.authReducer.isAuth);
+  const fetched = useSelector((state: RootState) => state.userDataReducer.fetched);
   
   const dispatch = useDispatch();
   const history = useHistory();
@@ -19,11 +20,12 @@ const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
 
   const logoutUser = () => {
     dispatch(logout());
+    dispatch(clearData());
     history.push('/auth');
   };
   return (
     <div>
-      <Nav logout={logoutUser} isAuth={isAuth}/>
+      <Nav logout={logoutUser} isAuth={isAuth} fetched={fetched} />
       <main>{children}</main>
     </div>
   );

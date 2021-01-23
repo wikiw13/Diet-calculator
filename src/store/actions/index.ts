@@ -6,7 +6,6 @@ export {
   authFail,
   authCheckState,
   checkAuthTimeout,
-  
 } from "./AuthActions";
 
 export {
@@ -14,25 +13,29 @@ export {
   sendHealthDataStart,
   sendHealthDataFail,
   sendHealthDataSuccess,
-  updateHealthData,
-  updateHealthDataFail,
-  updateHealthDataStart,
-  updateHealthDataSuccess
+  saveData,
+  closeModal,
+  getMoreFunctions,
 } from "./CalculatorActions";
 
 export {
- 
- changeHealthData,
- changeCarbs,
- changeFat,
- changeProtein,
- saveAssumptionsData,
- changeMeals
+  changeHealthData,
+  changeCarbs,
+  changeFat,
+  changeProtein,
+  saveAssumptionsData,
+  changeMeals,
 } from "./AssumptionsActions";
 
 export {
   fetchHealthData,
- fetchHealthDataStart,
- fetchHealthDataFail,
- fetchHealthDataSuccess,
-} from './userDataActions'
+  fetchHealthDataStart,
+  fetchHealthDataFail,
+  fetchHealthDataSuccess,
+  updateHealthData,
+  updateHealthDataFail,
+  updateHealthDataStart,
+  updateHealthDataSuccess,
+} from "./userDataActions";
+
+export { clearData } from "./CommonActions";
