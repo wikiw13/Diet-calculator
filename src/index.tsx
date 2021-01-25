@@ -17,9 +17,6 @@ import calculatorReducer, {
   CalculatorReducerState,
 } from "./store/reducers/calculatorReducer";
 import authReducer, { AuthReducerState } from "./store/reducers/authReducer";
-import assumptionsReducer, {
-  AssumptionsReducerState,
-} from "./store/reducers/assumptionsReducer";
 import userDataReducer, {UserDataReducerState} from './store/reducers/userDataReducer';
 import "rsuite/dist/styles/rsuite-default.css";
 import { watchAuth, watchCalculator, watchUserData } from "./store/sagas/index";
@@ -27,14 +24,12 @@ import { watchAuth, watchCalculator, watchUserData } from "./store/sagas/index";
 export interface RootState {
   calculatorReducer: CalculatorReducerState;
   authReducer: AuthReducerState;
-  assumptionsReducer: AssumptionsReducerState;
   userDataReducer: UserDataReducerState
 }
 
 const rootReducer = combineReducers<RootState>({
   calculatorReducer,
   authReducer,
-  assumptionsReducer,
   userDataReducer
 });
 

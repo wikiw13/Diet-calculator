@@ -127,6 +127,10 @@ export function* authCheckStateSaga(action: any) {
           (expirationDate.getTime() - new Date().getTime()) / 1000
         )
       );
+      yield call(fetchHealthDataSaga, {
+        token: token,
+        userId: userId,
+      });
     }
   }
 }

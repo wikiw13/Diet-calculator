@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useCallback, useEffect } from "react";
+import React, { FunctionComponent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Button } from "rsuite";
@@ -13,9 +13,6 @@ import {
 } from "../../store/actions/AuthActions";
 import { RootState } from "../../index";
 import Spinner from "../../components/Spinner/Spinner";
-import { healthDataSelector } from "../../selectors/factorSelector";
-import { HealthInfo } from "../../selectors/factorSelector";
-import { updateHealthData } from "../../store/actions";
 
 interface AuthProps {}
 
@@ -25,27 +22,11 @@ interface Inputs {
 }
 
 const Auth: FunctionComponent<AuthProps> = () => {
-  const { loading, logout, isAuth, error, userId, isSignUp } = useSelector(
+  const { loading, logout, isAuth, error, isSignUp } = useSelector(
     (state: RootState) => state.authReducer
   );
-  const getMore = useSelector(
-    (state: RootState) => state.calculatorReducer.getMore
-  );
-  const fetched = useSelector(
-    (state: RootState) => state.userDataReducer.fetched
-  );
-  const fetchLoading = useSelector(
-    (state: RootState) => state.userDataReducer.loading
-  );
-  const { weight, height, age, activity, gender, goal } = useSelector(
-    (state: RootState) => state.calculatorReducer.healthData
-  );
-  const { BMI, BMR, TEE, totalCalories } = useSelector<RootState, HealthInfo>(
-    healthDataSelector
-  );
-  const { key, macronutrients, meals } = useSelector(
-    (state: RootState) => state.userDataReducer
-  );
+
+  const { key } = useSelector((state: RootState) => state.userDataReducer);
 
   const { register, handleSubmit, errors, getValues } = useForm<Inputs>({
     mode: "onTouched",
@@ -53,59 +34,6 @@ const Auth: FunctionComponent<AuthProps> = () => {
 
   const history = useHistory();
 
-  // const healthData = {
-  //   userData: {
-  //     data: {
-  //       weight,
-  //       height,
-  //       age,
-  //       activity,
-  //       gender,
-  //       goal,
-  //     },
-  //     calculations: {
-  //       BMI,
-  //       BMR,
-  //       TEE,
-  //       totalCalories,
-  //     },
-  //   },
-  //   userId,
-  //   dietData: {
-  //     macronutrients: {
-  //       protein: 0,
-  //       fat: 0,
-  //       carbs: 0,
-  //     },
-  //     meals: [""],
-  //   },
-  // };
-
-  // const updatedHealthData = {
-  //   userData: {
-  //     data: {
-  //       weight,
-  //       height,
-  //       age,
-  //       activity,
-  //       gender,
-  //       goal,
-  //     },
-  //     calculations: {
-  //       BMI,
-  //       BMR,
-  //       TEE,
-  //       totalCalories,
-  //     },
-  //   },
-
-  //   dietData: {
-  //     macronutrients: {
-  //       ...macronutrients,
-  //     },
-  //     meals: [...meals],
-  //   },
-  // };
 
   const dispatch = useDispatch();
 
@@ -116,8 +44,6 @@ const Auth: FunctionComponent<AuthProps> = () => {
         data.password,
         isSignUp,
         history,
-        // healthData,
-        // updatedHealthData,
         key
       )
     );
