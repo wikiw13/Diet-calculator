@@ -45,4 +45,6 @@ export function* fetchHealthDataSaga(action: any) {
     } catch (error) {
       yield put(actions.updateHealthDataFail(error));
     }
-  }
+  };
+
+  

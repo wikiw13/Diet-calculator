@@ -114,8 +114,8 @@ const Calculator: FunctionComponent<CalculatorProps> = () => {
     key: string
   ) => {
     if (
-      (isAuth && change === false) ||
-      (isAuth && change === true && healthData === null)
+      (isAuth && !change) ||
+      (isAuth && change && healthData === null)
     ) {
       dispatch(sendHealthData(healthData, token));
       history.push("/assumptions");
