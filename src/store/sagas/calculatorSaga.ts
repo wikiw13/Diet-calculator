@@ -8,7 +8,6 @@ import { useRadioGroup } from "@material-ui/core";
 export function* sendHealthDataSaga(action: any) {
   yield put(actions.sendHealthDataStart());
   try {
-    console.log('action', action)
     yield delay(1000);
     const response = yield axios.post(
       "/health-data.json?auth=" + action.token,

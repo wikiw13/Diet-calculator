@@ -4,8 +4,7 @@ import axios from "../../axios-instance";
 import * as actions from "../actions/index";
 
 export function* fetchHealthDataSaga(action: any) {
-  console.log('fetch action:', action)
-    yield put(actions.fetchHealthDataStart());
+  yield put(actions.fetchHealthDataStart());
     const queryParams =
       "?auth=" +
       action.token +
@@ -21,7 +20,6 @@ export function* fetchHealthDataSaga(action: any) {
           key: key
         };
       };
-      console.log("healthdata:", healthData)
       yield put(actions.fetchHealthDataSuccess(healthData));
     } catch (error) {
       yield put(actions.fetchHealthDataFail(error));
@@ -31,7 +29,6 @@ export function* fetchHealthDataSaga(action: any) {
   export function* updateHealthDataSaga(action: any) {
     
     yield put(actions.updateHealthDataStart());
-    console.log('action update:', action)
     try {
       const response = yield axios.patch(
         "/health-data.json?auth=" + action.token,
