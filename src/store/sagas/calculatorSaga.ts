@@ -3,11 +3,12 @@ import axios from "../../axios-instance";
 import {fetchHealthDataSaga} from './userDataSaga';
 
 import * as actions from "../actions/index";
+import { useRadioGroup } from "@material-ui/core";
 
 export function* sendHealthDataSaga(action: any) {
   yield put(actions.sendHealthDataStart());
   try {
-    console.log(action)
+    console.log('action', action)
     yield delay(1000);
     const response = yield axios.post(
       "/health-data.json?auth=" + action.token,
@@ -16,7 +17,8 @@ export function* sendHealthDataSaga(action: any) {
     yield put(
       actions.sendHealthDataSuccess(response.data.name, action.healthData)
     );
-    yield call(fetchHealthDataSaga, action)
+    
+    yield call(fetchHealthDataSaga, {token: action.token, userId: action.healthData.userId, key: action.key })
   } catch (error) {
     yield put(actions.sendHealthDataFail(error));
   }

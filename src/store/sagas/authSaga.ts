@@ -70,22 +70,9 @@ export function* authUserSaga(action: any) {
         userId: response.data.localId,
         token: response.data.idToken,
       });
-      action.history.push("/assumptions");
 
-      //   //fetch nie robi się true
-    } else if (fetched) {
-      console.log('updated health data:', {
-        ...action,
-        updatedHealthData: {
-          [key]: {
-            ...action.updatedHealthData,
-            userId: response.data.localId,
-          },
-        },
-        token: response.data.idToken,
-        userId: response.data.localId,
-        key: key,
-      })
+      action.history.push("/assumptions");
+    } else if (getMore && fetched) {
       yield call(updateHealthDataSaga, {
         ...action,
         updatedHealthData: {
@@ -99,7 +86,8 @@ export function* authUserSaga(action: any) {
         key: key,
       });
       action.history.push("/assumptions");
-      //jeśli brak danych na serwerze
+    } else if (fetched) {
+      action.history.push("/assumptions");
     } else {
       action.history.push("/calculator");
     }
