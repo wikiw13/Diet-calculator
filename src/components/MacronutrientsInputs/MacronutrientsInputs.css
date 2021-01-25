@@ -1,0 +1,29 @@
+
+
+.protein {
+    background-color: var(--pink);
+}
+.carbs {
+    background-color: var(--green);
+}
+.fat {
+    background-color: var(--warning);
+}
+
+
+.card span {
+    color: var(--grey);
+}
+
+
+.p-inputtext:enabled:hover {
+    border: 1px solid var(--green);
+}
+.p-inputtext:enabled:focus {
+    border: 2px solid var(--green);
+    box-shadow: none;
+}
+
+.p-inputgroup {
+    margin: 10px;
+}

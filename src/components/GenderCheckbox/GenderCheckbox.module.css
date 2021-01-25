@@ -1,0 +1,76 @@
+.CheckboxField {
+    margin: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.CheckboxField label {
+    width: 30%;
+}
+
+.Checkbox {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.Label {
+    margin-left: 10px;
+}
+
+.CheckboxElement input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+   }
+
+.CheckboxElement .checkmark {
+    position: absolute;
+    top: 0;
+    left: -5px;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+.CheckboxElement {
+    display: block;
+    position: relative;
+    
+}
+
+.CheckboxElement:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+.CheckboxElement input:checked~.checkmark {
+    background-color: var(--pink)
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.CheckboxElement input:checked~.checkmark:after {
+    display: block;
+}
+
+.CheckboxElement .checkmark:after {
+    top: 6px;
+    left: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}

@@ -1,0 +1,76 @@
+.Assumptions {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.FormDisplay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* .Assumptions input {
+    height: 30px;
+    width: 80%;
+    margin-bottom: 10px;
+} */
+
+
+/* .Assumptions span {
+    font-size: 12px;
+    margin-bottom: 15px;
+    color: var(--warning);
+} */
+
+.Assumptions hr {
+    width: 100px;
+    height: 2px;
+    background-color: var(--green);
+    border: none;
+    margin-bottom: 20px;
+    
+}
+
+.Assumptions h3 {
+    margin-top: 30px;
+}
+
+.Assumptions Button {
+    background-color: var(--green);
+    color: var(--white);
+    align-self: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.Assumptions .Border {
+    border: 1px solid var(--green);
+    width: 30%;
+    padding: 20px;
+}
+
+.Assumptions label {
+    margin: 10px;
+}
+
+.Assumptions p {
+    color: var(--danger);
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.Macronutrients {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+
