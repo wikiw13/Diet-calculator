@@ -63,8 +63,8 @@ export const auth = (
   password: string,
   isSignup: boolean,
   history: any,
-  healthData: object,
-  updatedHealthData: object,
+  // healthData: object,
+  // updatedHealthData: object,
   key: string
 ) => {
   return {
@@ -73,8 +73,8 @@ export const auth = (
     password,
     isSignup,
     history,
-    healthData,
-    updatedHealthData,
+    // healthData,
+    // updatedHealthData,
     key
   };
 };

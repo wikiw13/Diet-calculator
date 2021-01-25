@@ -53,59 +53,59 @@ const Auth: FunctionComponent<AuthProps> = () => {
 
   const history = useHistory();
 
-  const healthData = {
-    userData: {
-      data: {
-        weight,
-        height,
-        age,
-        activity,
-        gender,
-        goal,
-      },
-      calculations: {
-        BMI,
-        BMR,
-        TEE,
-        totalCalories,
-      },
-    },
-    userId,
-    dietData: {
-      macronutrients: {
-        protein: 0,
-        fat: 0,
-        carbs: 0,
-      },
-      meals: [""],
-    },
-  };
+  // const healthData = {
+  //   userData: {
+  //     data: {
+  //       weight,
+  //       height,
+  //       age,
+  //       activity,
+  //       gender,
+  //       goal,
+  //     },
+  //     calculations: {
+  //       BMI,
+  //       BMR,
+  //       TEE,
+  //       totalCalories,
+  //     },
+  //   },
+  //   userId,
+  //   dietData: {
+  //     macronutrients: {
+  //       protein: 0,
+  //       fat: 0,
+  //       carbs: 0,
+  //     },
+  //     meals: [""],
+  //   },
+  // };
 
-  const updatedHealthData = {
-    userData: {
-      data: {
-        weight,
-        height,
-        age,
-        activity,
-        gender,
-        goal,
-      },
-      calculations: {
-        BMI,
-        BMR,
-        TEE,
-        totalCalories,
-      },
-    },
+  // const updatedHealthData = {
+  //   userData: {
+  //     data: {
+  //       weight,
+  //       height,
+  //       age,
+  //       activity,
+  //       gender,
+  //       goal,
+  //     },
+  //     calculations: {
+  //       BMI,
+  //       BMR,
+  //       TEE,
+  //       totalCalories,
+  //     },
+  //   },
 
-    dietData: {
-      macronutrients: {
-        ...macronutrients,
-      },
-      meals: [...meals],
-    },
-  };
+  //   dietData: {
+  //     macronutrients: {
+  //       ...macronutrients,
+  //     },
+  //     meals: [...meals],
+  //   },
+  // };
 
   const dispatch = useDispatch();
 
@@ -116,8 +116,8 @@ const Auth: FunctionComponent<AuthProps> = () => {
         data.password,
         isSignUp,
         history,
-        healthData,
-        updatedHealthData,
+        // healthData,
+        // updatedHealthData,
         key
       )
     );

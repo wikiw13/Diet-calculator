@@ -1,3 +1,4 @@
+import { healthDataSelector } from "./../../selectors/factorSelector";
 import { sendHealthData } from "./../actions/CalculatorActions";
 
 import { put, call, delay, select } from "redux-saga/effects";
@@ -56,50 +57,50 @@ export function* authUserSaga(action: any) {
       userId: response.data.localId,
       token: response.data.idToken,
     });
+
     const { fetched, key } = yield select(
       (state: RootState) => state.userDataReducer
     );
+    const healthData = yield select(
+      (state: RootState) => state.calculatorReducer.healthData
+    );
+    const { meals, macronutrients } = yield select(
+      (state: RootState) => state.userDataReducer
+    );
+    const healthDataCalculations = yield select(healthDataSelector);
 
     if (getMore && !fetched) {
+      const createdHealthData = createHealthData(
+        healthData,
+        healthDataCalculations,
+        response.data.localId
+      );
       yield call(sendHealthDataSaga, {
-        ...action,
-        healthData: {
-          ...action.healthData,
-          userId: response.data.localId,
-        },
+        // ...action,
+        healthData: createdHealthData,
         userId: response.data.localId,
         token: response.data.idToken,
       });
       action.history.push("/assumptions");
+    } else if (getMore && fetched) {
+      const updatedData = createUpdatedHealthData(
+        healthData,
+        healthDataCalculations,
+        response.data.localId,
+        key,
+        meals,
+        macronutrients
+      );
 
-      //   //fetch nie robi się true
-    } else if (fetched) {
-      console.log('updated health data:', {
-        ...action,
-        updatedHealthData: {
-          [key]: {
-            ...action.updatedHealthData,
-            userId: response.data.localId,
-          },
-        },
-        token: response.data.idToken,
-        userId: response.data.localId,
-        key: key,
-      })
       yield call(updateHealthDataSaga, {
-        ...action,
-        updatedHealthData: {
-          [key]: {
-            ...action.updatedHealthData,
-            userId: response.data.localId,
-          },
-        },
+        updatedHealthData: updatedData,
         token: response.data.idToken,
         userId: response.data.localId,
         key: key,
       });
       action.history.push("/assumptions");
-      //jeśli brak danych na serwerze
+    } else if (fetched) {
+      action.history.push("/assumptions");
     } else {
       action.history.push("/calculator");
     }
@@ -129,3 +130,70 @@ export function* authCheckStateSaga(action: any) {
     }
   }
 }
+
+const createHealthData = (
+  { weight, height, age, activity, gender, goal }: any,
+  { BMI, BMR, TEE, totalCalories }: any,
+  userId: string
+) => ({
+  userData: {
+    data: {
+      weight,
+      height,
+      age,
+      activity,
+      gender,
+      goal,
+    },
+    calculations: {
+      BMI,
+      BMR,
+      TEE,
+      totalCalories,
+    },
+  },
+  userId,
+  dietData: {
+    macronutrients: {
+      protein: 0,
+      fat: 0,
+      carbs: 0,
+    },
+    meals: [""],
+  },
+});
+
+const createUpdatedHealthData = (
+  { weight, height, age, activity, gender, goal }: any,
+  { BMI, BMR, TEE, totalCalories }: any,
+  userId: string,
+  key: string,
+  meals: string[],
+  macronutrients: object
+) => ({
+  [key]: {
+    userData: {
+      data: {
+        weight,
+        height,
+        age,
+        activity,
+        gender,
+        goal,
+      },
+      calculations: {
+        BMI,
+        BMR,
+        TEE,
+        totalCalories,
+      },
+    },
+    userId,
+    dietData: {
+      macronutrients: {
+        ...macronutrients,
+      },
+      meals: [...meals],
+    },
+  },
+});

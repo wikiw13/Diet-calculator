@@ -81,6 +81,7 @@ const reducer = (
         healthData: {},
         macronutrients: {},
         meals: [],
+        change: false
       };
     default:
       return state;

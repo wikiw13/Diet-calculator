@@ -31,7 +31,7 @@ const reducer = (
   state: UserDataReducerState = initialstate,
   action: any
 ): any => {
-  console.log(action);
+  
   switch (action.type) {
     case actionTypes.FETCH_HEALTH_DATA_START:
       return updateObject(state, {
