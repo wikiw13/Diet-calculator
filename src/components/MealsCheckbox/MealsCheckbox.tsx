@@ -25,7 +25,7 @@ export interface PrimeCheckboxProps {
 const MealsCheckbox: FunctionComponent<MealsCheckboxProps> = ({
   onMealChange,
 }) => {
-  const { meals } = useSelector((state: RootState) => state.assumptionsReducer);
+  const { meals } = useSelector((state: RootState) => state.userDataReducer);
 
   return (
     <div>

@@ -29,7 +29,7 @@ const Calculator: FunctionComponent<CalculatorProps> = () => {
     (state: RootState) => state.userDataReducer
   );
   const change = useSelector(
-    (state: RootState) => state.assumptionsReducer.change
+    (state: RootState) => state.userDataReducer.change
   );
   const { weight, height, age, activity, gender, goal } = useSelector(
     (state: RootState) => state.calculatorReducer.healthData

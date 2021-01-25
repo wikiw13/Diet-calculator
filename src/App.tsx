@@ -12,9 +12,6 @@ import Assumptions from "./containers/Assumptions/Assumptions";
 import Homepage from "./components/Homepage/Homepage";
 
 function App() {
-  const { token, userId } = useSelector(
-    (state: RootState) => state.authReducer
-  );
   const dispatch = useDispatch();
 
   const onTryAutoSignup = useCallback(

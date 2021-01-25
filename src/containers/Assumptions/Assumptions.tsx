@@ -46,10 +46,9 @@ const Assumptions: FunctionComponent<AssumptionsProps> = ({
     healthDataSelector
   );
   const { protein, carbs, fat } = useSelector(
-    (state: RootState) => state.assumptionsReducer.macronutrients
+    (state: RootState) => state.userDataReducer.macronutrients
   );
-  const { meals } = useSelector((state: RootState) => state.assumptionsReducer);
-  const { key } = useSelector((state: RootState) => state.userDataReducer);
+  const { key, meals } = useSelector((state: RootState) => state.userDataReducer);
   const { totalCalories } = useSelector((state: RootState) => state.userDataReducer.userData);
   const { userId, token } = useSelector(
     (state: RootState) => state.authReducer
@@ -128,9 +127,9 @@ const Assumptions: FunctionComponent<AssumptionsProps> = ({
           carbsChange={(carbsAmount) => onChangeCarbs(carbsAmount)}
           proteinChange={(proteinAmount) => onChangeProtein(proteinAmount)}
           fatChange={(fatAmount) => onChangeFat(fatAmount)}
-          carbsValue={carbsValue}
-          proteinValue={proteinValue}
-          fatValue={fatValue}
+          carbsValue={carbs}
+          proteinValue={protein}
+          fatValue={fat}
         />
       </div>
       {macronutrientsSummary !== 100 && <p>Summary must be equal to 100%!</p>}

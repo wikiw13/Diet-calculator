@@ -6,9 +6,9 @@ interface InputProps {
   carbsChange: (carbsAmount: string) => void;
   proteinChange: (carbsAmount: string) => void;
   fatChange: (carbsAmount: string) => void;
-  carbsValue: string;
-  proteinValue: string;
-  fatValue: string
+  carbsValue: number;
+  proteinValue: number;
+  fatValue: number
 }
 
 const MacronutrientsInputs: FunctionComponent<InputProps> = ({
