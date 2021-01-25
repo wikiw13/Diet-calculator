@@ -1,7 +1,6 @@
 import { takeEvery, all } from "redux-saga/effects";
 
 import * as actionTypes from "../actions/actionTypes";
-import {  } from "./assumptionsSaga";
 import { logoutSaga, authUserSaga, checkAuthTimeoutSaga, authCheckStateSaga} from "./authSaga";
 import {sendHealthDataSaga, } from './calculatorSaga';
 import {fetchHealthDataSaga, updateHealthDataSaga} from './userDataSaga';
