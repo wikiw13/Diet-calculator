@@ -14,13 +14,14 @@
 .Checkbox {
     width: 70%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.Label {
-    margin-left: 10px;
+.CheckboxElement .Label {
+    margin-left: 20px;
+    font-size: 10px;
 }
 
 .CheckboxElement input {
@@ -45,7 +46,7 @@
 .CheckboxElement {
     display: block;
     position: relative;
-    
+    margin: 5px;
 }
 
 .CheckboxElement:hover input~.checkmark {
@@ -73,4 +74,24 @@
     height: 8px;
     border-radius: 50%;
     background: white;
+}
+
+@media (min-width: 380px) {
+    .Checkbox {
+        width: 70%;
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 500px) {
+    .CheckboxElement .Label {
+        margin-left: 10px;
+        font-size: 12px;
+    }
+}
+@media (min-width: 640px) {
+    .CheckboxElement .Label {
+        font-size: 14px;
+        margin-left: 10px;
+    }
 }

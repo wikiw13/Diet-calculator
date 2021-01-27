@@ -3,17 +3,17 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
 }
 
 .Home img {
-    width: 30%;
+    width: 80%;
     margin: 25px;
 }
 
 .Home h2 {
     color: var(--grey);
     margin: 20px;
+    font-size: 30px;
 }
 
 .Home hr {
@@ -22,12 +22,12 @@
     background-color: var(--green);
     border: none;
     margin-top: 0;
-   }
+}
 
 .Home Button {
-    padding: 15px 25px;
+    padding: 10px 20px;
     margin: 40px;
-    font-size: 20px;
+    font-size: 18px;
     background-color: var(--green);
     color: var(--white);
 }
@@ -57,12 +57,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     width: 80%;
 }
 
 .GoalElement {
-    width: 15%;
+    width: 80%;
     margin: 30px 40px;
     font-size: 20px;
     font-weight: bold;
@@ -76,4 +76,62 @@
 .GoalElement i {
     font-size: 30px;
     margin-bottom: 15px;
+}
+
+@media (min-width: 500px) {
+    .Home img {
+        width: 60%;
+    }
+
+    .Home h2 {
+        font-size: 35px;
+    }
+
+    .Home Button {
+        padding: 12px 20px;
+    }
+
+    .GoalElements {
+        flex-direction: column;
+        width: 80%;
+    }
+
+    .GoalElement {
+        width: 80%;
+        font-size: 22px;
+    }
+}
+@media (min-width: 768px) {
+    .Home img {
+        width: 45%;
+        margin: 25px;
+    }
+
+    .GoalElements {
+        flex-direction: row;
+        width: 80%;
+    }
+
+    .GoalElement {
+        width: 25%;
+        font-size: 20px;
+    }
+}
+@media (min-width: 992px) {
+    .Home img {
+        width: 35%;
+        margin: 25px;
+    }
+
+    .Home Button {
+        padding: 15px 25px;
+        margin: 40px;
+        font-size: 20px;
+    }
+
+    .GoalElement {
+        width: 20%;
+        margin: 30px 40px;
+        font-size: 20px;
+    }
 }

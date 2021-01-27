@@ -6,4 +6,19 @@ export const clearData = () => {
   };
 };
 
+export const showSideDrawerFunction = () => {
+  return {
+    type: actionTypes.SHOW_SIDE_DRAWER,
+  };
+};
 
+export const closeSideDrawer = () => {
+  return {
+    type: actionTypes.CLOSE_SIDE_DRAWER,
+  };
+};
+export const closeLoadingModal = () => {
+  return {
+    type: actionTypes.CLOSE_LOADING_MODAL,
+  };
+};

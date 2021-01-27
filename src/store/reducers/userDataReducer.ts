@@ -16,7 +16,9 @@ export interface UserDataReducerState {
   loading: boolean;
   key: string;
   fetched: boolean;
-  change: boolean
+  change: boolean;
+  showSideDrawer: boolean;
+  showLoadingModal: boolean
 }
 
 const initialstate: UserDataReducerState = {
@@ -34,7 +36,9 @@ const initialstate: UserDataReducerState = {
   loading: false,
   key: "",
   fetched: false,
-  change: false
+  change: false,
+  showSideDrawer: false,
+  showLoadingModal: false
 };
 
 const reducer = (
@@ -43,10 +47,10 @@ const reducer = (
 ): any => {
   
   switch (action.type) {
-    case actionTypes.FETCH_HEALTH_DATA_START:
-      return updateObject(state, {
-        loading: true,
-      });
+    // case actionTypes.FETCH_HEALTH_DATA_START:
+    //   return updateObject(state, {
+    //     loading: true,
+    //   });
     case actionTypes.FETCH_HEALTH_DATA_SUCCESS:
       return {
         ...state,
@@ -66,11 +70,16 @@ const reducer = (
       return updateObject(state, {
         loading: false,
       });
-    case actionTypes.UPDATE_HEALTH_DATA:
-      return {
-        ...state,
-        show: true,
-      };
+    case actionTypes.UPDATE_HEALTH_DATA_SUCCESS:
+        return {
+          ...state,
+          showLoadingModal: true,
+        };
+    case actionTypes.CLOSE_LOADING_MODAL:
+        return {
+          ...state,
+          showLoadingModal: false,
+        };
       case actionTypes.CHANGE_HEALTH_DATA:
         return updateObject(state, {
           change: true,
@@ -104,6 +113,16 @@ const reducer = (
           ...state,
           meals: action.selectedMeals,
         };
+    case actionTypes.SHOW_SIDE_DRAWER:
+      return {
+        ...state,
+        showSideDrawer: !state.showSideDrawer,
+      };
+    case actionTypes.CLOSE_SIDE_DRAWER:
+      return {
+        ...state,
+        showSideDrawer: false,
+      };
     case actionTypes.CLEAR_DATA:
       return updateObject(state, {
         userData: {
