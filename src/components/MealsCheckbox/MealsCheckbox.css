@@ -1,8 +1,16 @@
+.card {
+    width: 90%;
+}
+
 .selectMealsField {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     margin: 20px;
+}
+
+.p-field-checkbox {
+    margin: 7px;
 }
 
 .p-checkbox-box {
@@ -27,4 +35,10 @@ background: var(--green) !important
 .p-checkbox-box.p-focus {
     border-color: var(--lightGrey) !important;
    box-shadow: 0 0 0 0.2rem var(--white) !important;
+}
+
+@media (min-width: 768px) {
+    .card h4 {
+        font-size: 24px;
+    }
 }

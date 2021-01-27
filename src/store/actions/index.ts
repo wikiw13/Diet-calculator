@@ -38,4 +38,4 @@ export {
   updateHealthDataSuccess,
 } from "./userDataActions";
 
-export { clearData } from "./CommonActions";
+export { clearData, showSideDrawerFunction, closeSideDrawer, closeLoadingModal } from "./CommonActions";

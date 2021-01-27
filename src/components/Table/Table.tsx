@@ -6,11 +6,16 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import classes from './Table.module.css';
 
 const useStyles = makeStyles({
   table: {
-    width: "30%",
+    width: "90%",
     margin: "auto",
+    ["@media (min-width:576px)"]: { width: '70%' },
+    ["@media (min-width:768px)"]: { width: '50%' },
+    ["@media (min-width:992px)"]: { width: '30%' },
+    
   },
   tableContainer: {
     boxShadow: "none",
@@ -18,28 +23,28 @@ const useStyles = makeStyles({
 });
 
 interface BasicTableProps {
-  activity: string;
-  goal: string;
+  fetchedActivity: string;
+  fetchedGoal: string;
   totalCalories: number;
 }
 
 export default function BasicTable(props: BasicTableProps) {
-  const { activity, goal, totalCalories } = props;
+  const { fetchedActivity, fetchedGoal, totalCalories } = props;
   const classes = useStyles();
 
   let activityText = "";
-  if (activity === "high") {
+  if (fetchedActivity === "high") {
     activityText = "High - physical work / 4-5 workouts during week";
-  } else if (activity === "low") {
+  } else if (fetchedActivity === "low") {
     activityText = "Low - sedentary lifestyle with low physical activity";
   } else {
     activityText = "Normal - standing work / 2-3 workouts during week";
   }
 
   let goalText = "";
-  if (goal === "loose") {
+  if (fetchedGoal === "loose") {
     goalText = "Loose weight";
-  } else if (goal === "gain") {
+  } else if (fetchedGoal === "gain") {
     goalText = "Gain weight / muscle mass";
   } else {
     goalText = "Healthy eating / weight maintenance";

@@ -1,5 +1,5 @@
 .FormDisplay {
-    width: 30%;
+    width: 80%;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -17,7 +17,6 @@
 
 .FormDisplay input,
 .FormDisplay select {
-
     height: 30px;
     width: 100%;
     margin: 10px;
@@ -36,7 +35,7 @@
     padding: 10px;
     border: none;
     background-color: var(--green);
-    cursor: pointer; 
+    cursor: pointer;
     border-radius: 3px;
     color: white;
     font-size: 18px;
@@ -46,13 +45,12 @@
 .FormDisplay .Error {
     font-size: 12px;
     color: var(--warning);
-    margin-left: 120px;
+    margin: auto;
 }
 
 .InputField label {
     width: 40%;
     color: var(--grey);
-
 }
 
 .Button:hover,
@@ -60,9 +58,46 @@
     background-color: var(--pink);
 }
 
-
-
 .SelectField {
     margin-top: 20px;
     width: 90%;
+    /* overflow: hidden;  */
+  
+}
+
+.SelectField select {
+    overflow: hidden;
+}
+
+@media (min-width: 576px) {
+    .FormDisplay {
+        width: 60%;
+    }
+
+    .FormDisplay .Error {
+        font-size: 12px;
+        margin: auto;
+    }
+}
+
+@media (min-width: 768px) {
+    .FormDisplay {
+        width: 50%;
+    }
+}
+
+@media (min-width: 992px) {
+    .FormDisplay {
+        width: 40%;
+    }
+
+    .FormDisplay .Error {
+        font-size: 13px;
+        margin: auto;
+    }
+}
+@media (min-width: 1300px) {
+    .FormDisplay {
+        width: 30%;
+    }
 }

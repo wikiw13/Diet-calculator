@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react";
 import { NavLink } from "react-router-dom";
 import classes from "./Nav.module.css";
 
+
 interface NavProps {
   isAuth: boolean;
   logout: () => void;

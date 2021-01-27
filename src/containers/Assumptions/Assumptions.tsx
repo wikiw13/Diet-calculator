@@ -1,8 +1,6 @@
 import React, {
   FunctionComponent,
-  useCallback,
-  useEffect,
-  ChangeEvent,
+  
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "rsuite";
@@ -22,9 +20,10 @@ import {
   changeProtein,
   changeMeals,
   updateHealthData,
+  closeLoadingModal,
 } from "../../store/actions";
 import MacronutrientsInputs from "../../components/MacronutrientsInputs/MacronutrientsInputs";
-
+import LoadingModal from '../../components/LoadingModal/LoadingModal';
 import { PrimeCheckboxProps } from "../../components/MealsCheckbox/MealsCheckbox";
 
 interface AssumptionsProps {
@@ -48,8 +47,10 @@ const Assumptions: FunctionComponent<AssumptionsProps> = ({
   const { protein, carbs, fat } = useSelector(
     (state: RootState) => state.userDataReducer.macronutrients
   );
-  const { key, meals } = useSelector((state: RootState) => state.userDataReducer);
+  const { key, meals, showLoadingModal } = useSelector((state: RootState) => state.userDataReducer);
   const { totalCalories } = useSelector((state: RootState) => state.userDataReducer.userData);
+  const fetchedActivity = useSelector((state: RootState) => state.userDataReducer.userData.activity);
+  const fetchedGoal = useSelector((state: RootState) => state.userDataReducer.userData.goal);
   const { userId, token } = useSelector(
     (state: RootState) => state.authReducer
   );
@@ -114,15 +115,21 @@ const Assumptions: FunctionComponent<AssumptionsProps> = ({
     dispatch(changeMeals(selectedMeals));
   };
 
+  const onModalClosed = () => {
+    dispatch(closeLoadingModal());
+  };
+
   return (
     <div className={classes.Assumptions}>
+      <LoadingModal show={showLoadingModal} modalClosed={onModalClosed}/>
       <h3>Your assumptions</h3>
       <hr />
-      {basicTable({ activity, goal, totalCalories })}
+      {basicTable({ fetchedActivity, fetchedGoal, totalCalories })}
       <Button onClick={onChangeHandler}>Change</Button>
       <hr />
       <div className={classes.Macronutrients}>
         {DoughnutChart(macronutrients)}
+        <div className={classes.MacronutrientsInputs}>
         <MacronutrientsInputs
           carbsChange={(carbsAmount) => onChangeCarbs(carbsAmount)}
           proteinChange={(proteinAmount) => onChangeProtein(proteinAmount)}
@@ -131,6 +138,8 @@ const Assumptions: FunctionComponent<AssumptionsProps> = ({
           proteinValue={protein}
           fatValue={fat}
         />
+        </div>
+        
       </div>
       {macronutrientsSummary !== 100 && <p>Summary must be equal to 100%!</p>}
       <hr />

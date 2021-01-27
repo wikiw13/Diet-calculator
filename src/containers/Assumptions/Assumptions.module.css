@@ -1,4 +1,5 @@
 .Assumptions {
+    box-sizing: border-box;
     width: 100%;
     height: 100%;
     display: flex;
@@ -7,56 +8,26 @@
     justify-content: flex-start;
 }
 
-.FormDisplay {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-/* .Assumptions input {
-    height: 30px;
-    width: 80%;
-    margin-bottom: 10px;
-} */
-
-
-/* .Assumptions span {
-    font-size: 12px;
-    margin-bottom: 15px;
-    color: var(--warning);
-} */
-
 .Assumptions hr {
     width: 100px;
     height: 2px;
     background-color: var(--green);
     border: none;
     margin-bottom: 20px;
-    
 }
 
 .Assumptions h3 {
     margin-top: 30px;
+    font-size: 25px;
 }
 
 .Assumptions Button {
     background-color: var(--green);
     color: var(--white);
     align-self: center;
-    margin-top: 10px;
+    margin-top: 20px;
     margin-bottom: 20px;
     font-size: 16px;
-}
-
-.Assumptions .Border {
-    border: 1px solid var(--green);
-    width: 30%;
-    padding: 20px;
-}
-
-.Assumptions label {
-    margin: 10px;
 }
 
 .Assumptions p {
@@ -66,11 +37,52 @@
 }
 
 .Macronutrients {
-    width: 100%;
+    width: 90%;
+    margin: auto;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.MacronutrientsInputs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: 576px) {
+    .Assumptions h3 {
+        font-size: 30px;
+    }
+    
+    .Macronutrients {
+        width: 95%;
+        flex-direction: row;
+    }
+    
+}
+@media (min-width: 768px) {
+    .Assumptions h3 {
+        font-size: 33px;
+    }
+    
+    .Assumptions Button {
+        font-size: 17px;
+    }
+    
+    .Macronutrients {
+        width: 90%;
+    }    
+}
+@media (min-width: 992px) {
+    .Assumptions h3 {
+        font-size: 36px;
+    }
+ 
+    .Macronutrients {
+        width: 70%;
+    }
 }
 
 

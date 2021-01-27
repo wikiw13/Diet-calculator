@@ -12,6 +12,7 @@ export function* fetchHealthDataSaga(action: any) {
       action.userId +
       '"';
     try {
+      yield delay(1000);
       const response = yield axios.get("/health-data.json" + queryParams);
       let healthData = {};
       for (let key in response.data) {
