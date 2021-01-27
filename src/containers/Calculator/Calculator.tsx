@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import classes from "./Calculator.module.css";
-import Modal from "../../components/Modal/Modal";
+import Modal from "../../components/Modal/CalculatorModal/CalculatorModal";
 import {
   saveData,
   closeModal,

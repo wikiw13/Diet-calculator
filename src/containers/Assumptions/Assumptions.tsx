@@ -20,10 +20,11 @@ import {
   changeProtein,
   changeMeals,
   updateHealthData,
-  closeLoadingModal,
+  closeSaveDataModal
 } from "../../store/actions";
 import MacronutrientsInputs from "../../components/MacronutrientsInputs/MacronutrientsInputs";
-import LoadingModal from '../../components/LoadingModal/LoadingModal';
+import LoadingModal from '../../components/Modal/LoadingModal/LoadingModal';
+import SaveDataModal from '../../components/Modal/SaveDataModal/SaveDataModal';
 import { PrimeCheckboxProps } from "../../components/MealsCheckbox/MealsCheckbox";
 
 interface AssumptionsProps {
@@ -47,7 +48,7 @@ const Assumptions: FunctionComponent<AssumptionsProps> = ({
   const { protein, carbs, fat } = useSelector(
     (state: RootState) => state.userDataReducer.macronutrients
   );
-  const { key, meals, showLoadingModal } = useSelector((state: RootState) => state.userDataReducer);
+  const { key, meals, showSaveDataModal, showLoadingModal, loading } = useSelector((state: RootState) => state.userDataReducer);
   const { totalCalories } = useSelector((state: RootState) => state.userDataReducer.userData);
   const fetchedActivity = useSelector((state: RootState) => state.userDataReducer.userData.activity);
   const fetchedGoal = useSelector((state: RootState) => state.userDataReducer.userData.goal);
@@ -116,12 +117,13 @@ const Assumptions: FunctionComponent<AssumptionsProps> = ({
   };
 
   const onModalClosed = () => {
-    dispatch(closeLoadingModal());
+    dispatch(closeSaveDataModal());
   };
 
   return (
     <div className={classes.Assumptions}>
-      <LoadingModal show={showLoadingModal} modalClosed={onModalClosed}/>
+      {/* <SaveDataModal show={showSaveDataModal} modalClosed={onModalClosed}/> */}
+      <LoadingModal show={showLoadingModal} loading={loading}/>
       <h3>Your assumptions</h3>
       <hr />
       {basicTable({ fetchedActivity, fetchedGoal, totalCalories })}

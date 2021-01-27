@@ -13,6 +13,7 @@ import {
 } from "../../store/actions/AuthActions";
 import { RootState } from "../../index";
 import Spinner from "../../components/Spinner/Spinner";
+import LoadingModal from '../../components/Modal/LoadingModal/LoadingModal';
 
 interface AuthProps {}
 
@@ -26,7 +27,8 @@ const Auth: FunctionComponent<AuthProps> = () => {
     (state: RootState) => state.authReducer
   );
 
-  const { key } = useSelector((state: RootState) => state.userDataReducer);
+  const { key, showLoadingModal } = useSelector((state: RootState) => state.userDataReducer);
+  const loadingUserData = useSelector((state: RootState) => state.userDataReducer.loading);
 
   const { register, handleSubmit, errors, getValues } = useForm<Inputs>({
     mode: "onTouched",
@@ -88,6 +90,7 @@ const Auth: FunctionComponent<AuthProps> = () => {
 
   return (
     <div className={classes.Form}>
+      <LoadingModal show={showLoadingModal} loading={loadingUserData}/>
       <h2>{isSignUp ? "Signin" : "Signup"} form</h2>
       <div className={classes.Border}>
         <Button className={classes.Button} onClick={onSwitchAuthMode}>
