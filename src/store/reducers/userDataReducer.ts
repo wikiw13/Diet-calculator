@@ -75,6 +75,11 @@ const reducer = (
           ...state,
           showLoadingModal: true,
         };
+        case actionTypes.SEND_HEALTH_DATA_SUCCESS:
+          return {
+            ...state,
+            showLoadingModal: true,
+          };
     case actionTypes.CLOSE_LOADING_MODAL:
         return {
           ...state,
