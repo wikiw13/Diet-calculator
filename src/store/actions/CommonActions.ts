@@ -17,8 +17,9 @@ export const closeSideDrawer = () => {
     type: actionTypes.CLOSE_SIDE_DRAWER,
   };
 };
-export const closeLoadingModal = () => {
+
+export const closeSaveDataModal = () => {
   return {
-    type: actionTypes.CLOSE_LOADING_MODAL,
+    type: actionTypes.CLOSE_SAVE_DATA_MODAL,
   };
 };

@@ -3,7 +3,6 @@ import axios from "../../axios-instance";
 import {fetchHealthDataSaga} from './userDataSaga';
 
 import * as actions from "../actions/index";
-import { useRadioGroup } from "@material-ui/core";
 
 export function* sendHealthDataSaga(action: any) {
   yield put(actions.sendHealthDataStart());

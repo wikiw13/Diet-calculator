@@ -18,6 +18,7 @@ export interface UserDataReducerState {
   fetched: boolean;
   change: boolean;
   showSideDrawer: boolean;
+  showSaveDataModal: boolean;
   showLoadingModal: boolean
 }
 
@@ -38,6 +39,7 @@ const initialstate: UserDataReducerState = {
   fetched: false,
   change: false,
   showSideDrawer: false,
+  showSaveDataModal: false,
   showLoadingModal: false
 };
 
@@ -47,10 +49,11 @@ const reducer = (
 ): any => {
   
   switch (action.type) {
-    // case actionTypes.FETCH_HEALTH_DATA_START:
-    //   return updateObject(state, {
-    //     loading: true,
-    //   });
+    case actionTypes.FETCH_HEALTH_DATA_START:
+      return updateObject(state, {
+        loading: true,
+        showLoadingModal: true
+      });
     case actionTypes.FETCH_HEALTH_DATA_SUCCESS:
       return {
         ...state,
@@ -65,25 +68,42 @@ const reducer = (
         loading: false,
         key: action.healthData.key,
         fetched: true,
+        showLoadingModal: false
       };
     case actionTypes.FETCH_HEALTH_DATA_FAIL:
       return updateObject(state, {
         loading: false,
+        showLoadingModal: false
       });
     case actionTypes.UPDATE_HEALTH_DATA_SUCCESS:
         return {
           ...state,
-          showLoadingModal: true,
+          showSaveDataModal: true,
+          loading: false,
+          showLoadingModal: false
         };
+    case actionTypes.UPDATE_HEALTH_DATA_START:
+        return {
+          ...state,
+          loading: true,
+          showLoadingModal: true
+        };
+        case actionTypes.SEND_HEALTH_DATA_START:
+          return {
+            ...state,
+            loading: true,
+            showLoadingModal: true
+          };
         case actionTypes.SEND_HEALTH_DATA_SUCCESS:
           return {
             ...state,
-            showLoadingModal: true,
+            showSaveDataModal: true,
+            showLoadingModal: false
           };
-    case actionTypes.CLOSE_LOADING_MODAL:
+    case actionTypes.CLOSE_SAVE_DATA_MODAL:
         return {
           ...state,
-          showLoadingModal: false,
+          showSaveDataModal: false,
         };
       case actionTypes.CHANGE_HEALTH_DATA:
         return updateObject(state, {

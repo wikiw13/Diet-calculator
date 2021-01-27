@@ -1,18 +1,18 @@
 import React, { FunctionComponent } from "react";
 
 import classes from "./LoadingModal.module.css";
-import Backdrop from "../Backdrop/Backdrop";
-import Spinner from "../Spinner/Spinner";
+import Backdrop from "../../Backdrop/LoadingBackdrop";
+import Spinner from "../../Spinner/Spinner";
 
 interface ModalProps {
   show: boolean;
-  modalClosed: () => void;
+  loading: boolean
 }
 
-const Modal: FunctionComponent<ModalProps> = ({ show, modalClosed }) => {
+const Modal: FunctionComponent<ModalProps> = ({ show, loading }) => {
   return (
     <div>
-      <Backdrop show={show} clicked={modalClosed}/>
+      <Backdrop show={show} />
       <div
         className={classes.Modal}
         style={{
@@ -20,7 +20,7 @@ const Modal: FunctionComponent<ModalProps> = ({ show, modalClosed }) => {
           opacity: show ? "1" : "0",
         }}
       >
-        <p>Saved succesfully! :)</p>
+        {loading && <Spinner />}
       </div>
     </div>
   );
