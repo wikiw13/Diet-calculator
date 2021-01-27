@@ -88,7 +88,7 @@ const Auth: FunctionComponent<AuthProps> = () => {
     </form>
   );
 
-  return ( 
+  return (
     <div className={classes.Form}>
       <LoadingModal show={showLoadingModal} loading={loadingUserData}/>
       <h2>{isSignUp ? "Signin" : "Signup"} form</h2>
