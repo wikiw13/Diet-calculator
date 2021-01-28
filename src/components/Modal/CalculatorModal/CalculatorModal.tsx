@@ -4,7 +4,6 @@ import { Button } from "rsuite";
 import classes from "./CalculatorModal.module.css";
 import Backdrop from "../../Backdrop/Backdrop";
 import { CustomPopover } from "../../Popover/Popover";
-import { NavLink } from "react-router-dom";
 
 interface ModalProps {
   show: boolean;

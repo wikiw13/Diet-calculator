@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent, ChangeEvent } from "react";
+import React, { FunctionComponent } from "react";
 import { Checkbox } from "primereact/checkbox";
 import { useSelector } from "react-redux";
 

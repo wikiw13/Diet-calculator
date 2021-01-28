@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Popover, Whisper, Button } from "rsuite";
+import { Popover, Whisper } from "rsuite";
 
 interface PopoverProps {
   content: string;

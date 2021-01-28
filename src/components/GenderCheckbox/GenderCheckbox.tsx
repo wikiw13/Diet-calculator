@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ChangeEvent } from "react";
-import { useForm } from "react-hook-form";
+
 import classes from "./GenderCheckbox.module.css";
 
 interface GenderCheckboxProps {

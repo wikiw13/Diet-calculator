@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode } from "react";
+import React, { FunctionComponent } from "react";
 import classes from "./NavItems.module.css";
 
 import NavItem from './NavItem/NavItem';

@@ -68,6 +68,7 @@ const Auth: FunctionComponent<AuthProps> = () => {
 
       <label>Password:</label>
       <input
+      type='password'
         name="password"
         onChange={() => onChangePassword(getValues("password"))}
         ref={register({ required: true, minLength: 6 })}
