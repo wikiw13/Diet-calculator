@@ -18,7 +18,6 @@ export interface UserDataReducerState {
   fetched: boolean;
   change: boolean;
   showSideDrawer: boolean;
-  showSaveDataModal: boolean;
   showLoadingModal: boolean
 }
 
@@ -39,7 +38,6 @@ const initialstate: UserDataReducerState = {
   fetched: false,
   change: false,
   showSideDrawer: false,
-  showSaveDataModal: false,
   showLoadingModal: false
 };
 
@@ -78,7 +76,6 @@ const reducer = (
     case actionTypes.UPDATE_HEALTH_DATA_SUCCESS:
         return {
           ...state,
-          showSaveDataModal: true,
           loading: false,
           showLoadingModal: false
         };
@@ -97,14 +94,8 @@ const reducer = (
         case actionTypes.SEND_HEALTH_DATA_SUCCESS:
           return {
             ...state,
-            showSaveDataModal: true,
             showLoadingModal: false
           };
-    case actionTypes.CLOSE_SAVE_DATA_MODAL:
-        return {
-          ...state,
-          showSaveDataModal: false,
-        };
       case actionTypes.CHANGE_HEALTH_DATA:
         return updateObject(state, {
           change: true,

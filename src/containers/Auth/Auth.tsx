@@ -23,7 +23,7 @@ interface Inputs {
 }
 
 const Auth: FunctionComponent<AuthProps> = () => {
-  const { loading, logout, isAuth, error, isSignUp } = useSelector(
+  const { loading, isAuth, error, isSignUp } = useSelector(
     (state: RootState) => state.authReducer
   );
 
@@ -86,36 +86,28 @@ const Auth: FunctionComponent<AuthProps> = () => {
   return (
     <div className={classes.Form}>
       <LoadingModal show={showLoadingModal} loading={loadingUserData} />
-      <h2>{isSignUp ? "Signin" : "Signup"} form</h2>
+      <h2>{isSignUp ? "Login" : "Register"} form</h2>
       <div className={classes.Border}>
-        <p className={classes.Info}>
-          If you want to {isSignUp ? "register" : "login"} click:
-        </p>
-        <Button className={classes.Button} onClick={onSwitchAuthMode}>
-          Go to the {isSignUp ? "signup" : "signin"} page
-        </Button>
-        <hr></hr>
-        {logout && error === null && (
-          <div>
-            {isSignUp ? (
-              <p>You're not signin...</p>
-            ) : (
-              <p>You're not signup...</p>
-            )}
-          </div>
-        )}
-        {isAuth && error === null && <p>You're signin :)</p>}
+        {isAuth && error === null && <p>You're logged in :)</p>}
         {error && isSignUp && (
           <p className={classes.Warning}>
-            Signin failed :( Please try again or go to the signup page.
+            Login failed :( Please try again or go to the register page.
           </p>
         )}
         {error && !isSignUp && (
           <p className={classes.Warning}>
-            Signup failed :( Please try again or go to the signin page.
+            Register failed :( Please try again or go to the login page.
           </p>
         )}
         {loading ? <Spinner /> : form}
+        <hr></hr>
+        <p className={classes.Info}>
+          {isSignUp ? `You don't have an account? Register here:` : 'If you want to login click:'}
+        </p>
+        <Button className={classes.Button} onClick={onSwitchAuthMode}>
+          Switch to {isSignUp ? "register" : "login"}
+        </Button>
+        
       </div>
     </div>
   );
