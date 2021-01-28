@@ -13,7 +13,7 @@ import {
 } from "../../store/actions/AuthActions";
 import { RootState } from "../../index";
 import Spinner from "../../components/Spinner/Spinner";
-import LoadingModal from '../../components/Modal/LoadingModal/LoadingModal';
+import LoadingModal from "../../components/Modal/LoadingModal/LoadingModal";
 
 interface AuthProps {}
 
@@ -27,8 +27,12 @@ const Auth: FunctionComponent<AuthProps> = () => {
     (state: RootState) => state.authReducer
   );
 
-  const { key, showLoadingModal } = useSelector((state: RootState) => state.userDataReducer);
-  const loadingUserData = useSelector((state: RootState) => state.userDataReducer.loading);
+  const { key, showLoadingModal } = useSelector(
+    (state: RootState) => state.userDataReducer
+  );
+  const loadingUserData = useSelector(
+    (state: RootState) => state.userDataReducer.loading
+  );
 
   const { register, handleSubmit, errors, getValues } = useForm<Inputs>({
     mode: "onTouched",
@@ -36,19 +40,10 @@ const Auth: FunctionComponent<AuthProps> = () => {
 
   const history = useHistory();
 
-
   const dispatch = useDispatch();
 
   const onSubmit = (data: any) => {
-    dispatch(
-      auth(
-        data.mail,
-        data.password,
-        isSignUp,
-        history,
-        key
-      )
-    );
+    dispatch(auth(data.mail, data.password, isSignUp, history, key));
   };
   const onChangeMail = (mail: string) => dispatch(changeMailHandler(mail));
   const onChangePassword = (password: string) =>
@@ -90,21 +85,36 @@ const Auth: FunctionComponent<AuthProps> = () => {
 
   return (
     <div className={classes.Form}>
-      <LoadingModal show={showLoadingModal} loading={loadingUserData}/>
+      <LoadingModal show={showLoadingModal} loading={loadingUserData} />
       <h2>{isSignUp ? "Signin" : "Signup"} form</h2>
       <div className={classes.Border}>
+        <p className={classes.Info}>
+          If you want to {isSignUp ? "register" : "login"} click:
+        </p>
         <Button className={classes.Button} onClick={onSwitchAuthMode}>
           Go to the {isSignUp ? "signup" : "signin"} page
         </Button>
         <hr></hr>
         {logout && error === null && (
           <div>
-            <p>You're not signin...</p>
-            <p>Signin or signup below:</p>
+            {isSignUp ? (
+              <p>You're not signin...</p>
+            ) : (
+              <p>You're not signup...</p>
+            )}
           </div>
         )}
         {isAuth && error === null && <p>You're signin :)</p>}
-        {error && <p>Signin / signup failed :( Try again...</p>}
+        {error && isSignUp && (
+          <p className={classes.Warning}>
+            Signin failed :( Please try again or go to the signup page.
+          </p>
+        )}
+        {error && !isSignUp && (
+          <p className={classes.Warning}>
+            Signup failed :( Please try again or go to the signin page.
+          </p>
+        )}
         {loading ? <Spinner /> : form}
       </div>
     </div>

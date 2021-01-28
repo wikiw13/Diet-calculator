@@ -38,7 +38,7 @@ const reducer = (state: AuthReducerState = initialstate, action: any): any => {
         password: action.payload.password,
       });
     case actionTypes.SWITCH_AUTH_MODE:
-      return updateObject(state, { isSignUp: !state.isSignUp });
+      return updateObject(state, { isSignUp: !state.isSignUp, error: null });
     case actionTypes.AUTH_START:
       return updateObject(state, { error: null, loading: true });
     case actionTypes.AUTH_SUCCESS:

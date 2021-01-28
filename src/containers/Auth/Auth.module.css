@@ -66,6 +66,13 @@
     margin-bottom: 20px;
 }
 
+.Form .Info {
+    font-weight: bold;
+}
+.Form .Warning {
+    color: var(--warning) !important
+}
+
 @media (min-width: 450px) {
     .Form .Border {
         width: 60%;
