@@ -1,6 +1,6 @@
 import React, {
   FunctionComponent,
-  
+  useMemo
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "rsuite";
@@ -114,6 +114,12 @@ const Assumptions: FunctionComponent<AssumptionsProps> = ({
     dispatch(changeMeals(selectedMeals));
   };
 
+  const dougnut = useMemo(() => {
+    return (
+      DoughnutChart(macronutrients)
+    )
+  }, [protein, carbs, fat])
+
   return (
     <div className={classes.Assumptions}>
       <LoadingModal show={showLoadingModal} loading={loading}/>
@@ -123,7 +129,7 @@ const Assumptions: FunctionComponent<AssumptionsProps> = ({
       <Button onClick={onChangeHandler}>Change</Button>
       <hr />
       <div className={classes.Macronutrients}>
-        {DoughnutChart(macronutrients)}
+        {dougnut}
         <div className={classes.MacronutrientsInputs}>
         <MacronutrientsInputs
           carbsChange={(carbsAmount) => onChangeCarbs(carbsAmount)}
